@@ -1,7 +1,8 @@
 # Личный проект «Шесть городов (простой)»
 
 * Студент: [Обручкова Юлия](https://up.htmlacademy.ru/react/11/user/2069403).
-* Наставник: [Юрий Лаврухин](https://htmlacademy.ru/profile/id2038891).
+* Наставник: [Юрий Лаврухин](https://htmlacademy.ru/profile/id2038891)
+
 
 ---
 
