@@ -1,11 +1,10 @@
 type CardProps = {
   title: string;
-  key: number;
 }
 
-function Card({title, key}:CardProps):JSX.Element {
+function Card({title}:CardProps):JSX.Element {
   return (
-    <article className="cities__card place-card" key={key}>
+    <article className="cities__card place-card">
       <div className="place-card__mark">
         <span>Premium</span>
       </div>

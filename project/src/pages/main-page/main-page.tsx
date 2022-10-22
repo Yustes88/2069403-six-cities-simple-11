@@ -4,7 +4,7 @@ type MainPageProps = {
   totalAmount: number;
 }
 
-const cardInfo = [{title: 'Apartment', key: 1}, {title: 'Private room', key: 2}, {title: 'Apartment', key: 3}, {title: 'Apartment', key: 4}, {title: 'Private room', key: 5}];
+const cardInfo = [{title: 'Apartment', id: 1}, {title: 'Private room', id: 2}, {title: 'Apartment', id: 3}, {title: 'Apartment', id: 4}, {title: 'Private room', id: 5}];
 
 
 function MainPage({totalAmount}: MainPageProps):JSX.Element {
@@ -96,7 +96,7 @@ function MainPage({totalAmount}: MainPageProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cardInfo.map((item) => (<Card title={item.title} key={item.key}/>))}
+                {cardInfo.map((item) => (<Card title={item.title} key={item.id}/>))}
               </div>
             </section>
             <div className="cities__right-section">
