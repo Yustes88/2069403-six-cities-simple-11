@@ -1,6 +1,11 @@
-function Card() {
+type CardProps = {
+  title: string;
+  key: number;
+}
+
+function Card({title, key}:CardProps):JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" key={key}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -26,7 +31,7 @@ function Card() {
         <h2 className="place-card__name">
           <a href="#link">Beautiful &amp; luxurious apartment at great location</a>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{title}</p>
       </div>
     </article>
   );

@@ -4,6 +4,9 @@ type MainPageProps = {
   totalAmount: number;
 }
 
+const cardInfo = [{title: 'Apartment', key: 1}, {title: 'Private room', key: 2}, {title: 'Apartment', key: 3}, {title: 'Apartment', key: 4}, {title: 'Private room', key: 5}];
+
+
 function MainPage({totalAmount}: MainPageProps):JSX.Element {
   return (
     <>
@@ -93,11 +96,7 @@ function MainPage({totalAmount}: MainPageProps):JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                {cardInfo.map((item) => (<Card title={item.title} key={item.key}/>))}
               </div>
             </section>
             <div className="cities__right-section">
