@@ -1,4 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import { AppRoute } from '../../const';
 import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
@@ -12,11 +13,12 @@ function App({totalAmount}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/'>
+        <Route path={AppRoute.Root}>
           <Route index element={<Main totalAmount={totalAmount}/>}/>
-          <Route path='login' element={<Login/>}/>
-          <Route path='offer/:id' element={<Room/>}/>
-          <Route path="*" element={<NotFound/>}/>
+          <Route path={AppRoute.Login} element={<Login/>}/>
+          <Route path={AppRoute.Offer} element={<Room/>}/>
+          <Route path={AppRoute.Id} element={<Room/>}/>
+          <Route path={AppRoute.NotFound} element={<NotFound/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
