@@ -16,10 +16,11 @@ function App({totalAmount}: AppScreenProps): JSX.Element {
         <Route path={AppRoute.Root}>
           <Route index element={<Main totalAmount={totalAmount}/>}/>
           <Route path={AppRoute.Login} element={<Login/>}/>
-          <Route path={AppRoute.Offer} element={<Room/>}/>
-          <Route path={AppRoute.Id} element={<Room/>}/>
-          <Route path={AppRoute.NotFound} element={<NotFound/>}/>
+          <Route path={AppRoute.Offer} element={<Room/>}>
+            <Route path={AppRoute.Id} element={<Room/>}/>
+          </Route>
         </Route>
+        <Route path={AppRoute.NotFound} element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>
   );
