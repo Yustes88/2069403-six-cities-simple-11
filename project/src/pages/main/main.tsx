@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card/card';
+import Logo from '../../components/logo/logo';
 
 type MainPageProps = {
   totalAmount: number;
@@ -7,17 +9,16 @@ type MainPageProps = {
 const cardInfo = [{title: 'Apartment', id: 1}, {title: 'Private room', id: 2}, {title: 'Apartment', id: 3}, {title: 'Apartment', id: 4}, {title: 'Private room', id: 5}];
 
 
-function MainPage({totalAmount}: MainPageProps):JSX.Element {
+function Main({totalAmount}: MainPageProps):JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href='#link'>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
+            <Logo/>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -110,4 +111,4 @@ function MainPage({totalAmount}: MainPageProps):JSX.Element {
 }
 
 
-export default MainPage;
+export default Main;
