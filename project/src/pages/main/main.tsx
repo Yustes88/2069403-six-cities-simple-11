@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card/card';
 import Logo from '../../components/logo/logo';
 
@@ -11,6 +12,9 @@ const cardInfo = [{title: 'Apartment', id: 1}, {title: 'Private room', id: 2}, {
 function Main({totalAmount}: MainPageProps):JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
