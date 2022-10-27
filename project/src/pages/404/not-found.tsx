@@ -6,7 +6,7 @@ function NotFound(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>Oops, 404 not found</title>
+        <title>Page not found</title>
       </Helmet>
       <header className="header">
         <div className="container">

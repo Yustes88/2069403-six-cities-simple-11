@@ -14,7 +14,7 @@ function Main({totalAmount}: MainPageProps):JSX.Element {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            {<Logo/>}
+            <Logo/>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
