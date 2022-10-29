@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import {offerMock} from './mocks/offerMock';
 
 const Setting = {
   totalAmount: 405,
@@ -14,6 +15,7 @@ root.render(
   <React.StrictMode>
     <App
       totalAmount={Setting.totalAmount}
+      offers = {offerMock}
     />
   </React.StrictMode>,
 );

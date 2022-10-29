@@ -1,15 +1,15 @@
 import { Helmet } from 'react-helmet-async';
-import Card from '../../components/card/card';
+import CardsList from '../../components/cards-list/cards-list';
 import Logo from '../../components/logo/logo';
+import { Offers } from '../../types/offer-type-full';
 
 type MainPageProps = {
   totalAmount: number;
+  offers: Offers;
 }
 
-const cardInfo = [{title: 'Apartment', id: 1}, {title: 'Private room', id: 2}, {title: 'Apartment', id: 3}, {title: 'Apartment', id: 4}, {title: 'Private room', id: 5}];
 
-
-function Main({totalAmount}: MainPageProps):JSX.Element {
+function Main({totalAmount, offers}: MainPageProps):JSX.Element {
   return (
     <>
       <Helmet>
@@ -96,9 +96,7 @@ function Main({totalAmount}: MainPageProps):JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {cardInfo.map((item) => (<Card title={item.title} key={item.id}/>))}
-              </div>
+              <CardsList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
