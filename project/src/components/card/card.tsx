@@ -1,22 +1,24 @@
+import { Link } from 'react-router-dom';
 import { OfferTypeFull } from '../../types/offer-type-full';
 
 type CardProps = {
   offer: OfferTypeFull;
+  onMouseEnter: (cardId:number)=> void;
 }
 
-function Card({offer}:CardProps):JSX.Element {
-  const {pricePerNight, isPremium, rate, propertyName, propertyType} = offer;
+function Card({offer, onMouseEnter}:CardProps):JSX.Element {
+  const {id, pricePerNight, isPremium, rate, propertyName, propertyType} = offer;
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" key={id} onMouseEnter={() => onMouseEnter(offer.id)}>
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : ''}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#link">
+        <Link to={`offer:${id}`}>
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -33,7 +35,7 @@ function Card({offer}:CardProps):JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#link">{propertyName}</a>
+          <Link to={`offer:${id}`}>{propertyName}</Link>
         </h2>
         <p className="place-card__type">{propertyType}</p>
       </div>
