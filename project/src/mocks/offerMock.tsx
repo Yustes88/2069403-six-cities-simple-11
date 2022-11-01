@@ -6,7 +6,7 @@ const getPicture = () => `${IMG_URL}-0${getRandomInteger(1, 3)}.jpg`;
 
 export const offerMock: Offers = [
   {
-    id: 1,
+    id: '1',
     pictures: Array.from({ length: 6 }, getPicture),
     isPremium: true,
     pricePerNight: 50,
@@ -30,7 +30,7 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
@@ -38,14 +38,14 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
     ],
   },
   {
-    id: 2,
+    id: '2',
     pictures: Array.from({ length: 6 }, getPicture),
     isPremium: true,
     pricePerNight: 120,
@@ -69,7 +69,7 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
@@ -77,13 +77,13 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
     ],
   }, {
-    id: 3,
+    id: '3',
     pictures: Array.from({ length: 6 }, getPicture),
     isPremium: false,
     pricePerNight: 100,
@@ -107,7 +107,7 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
@@ -115,13 +115,13 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
     ],
   }, {
-    id: 4,
+    id: '4',
     pictures: Array.from({ length: 6 }, getPicture),
     isPremium: true,
     pricePerNight: 150,
@@ -145,7 +145,7 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
@@ -153,7 +153,7 @@ export const offerMock: Offers = [
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
-        // date: '2019-04-24',
+        date: '2019-04-29T12:00:00Z',
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },

@@ -8,8 +8,8 @@ type MainPageProps = {
 
 function CardsList({offers}: MainPageProps):JSX.Element {
   const [, setActive] = useState(0);
-  function handleOnMouseEnter(cardId: number) {
-    setActive(cardId);
+  function handleOnMouseEnter(id: string) {
+    setActive(Number(id));
   }
 
 

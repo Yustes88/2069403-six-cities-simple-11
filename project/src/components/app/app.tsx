@@ -13,7 +13,6 @@ type AppScreenProps = {
 };
 
 function App({ totalAmount, offers }: AppScreenProps): JSX.Element {
-  const [firstOffer] = offers;
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -21,12 +20,7 @@ function App({ totalAmount, offers }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route index element={<Main totalAmount={totalAmount} offers={offers}/>} />
             <Route path={AppRoute.Login} element={<Login />} />
-            <Route
-              path={AppRoute.Id}
-              element={<Room offer={firstOffer} />}
-            >
-              {/* <Route path={AppRoute.Id} element={<Room/>}/> */}
-            </Route>
+            <Route path='offer/:id' element={<Room offers={offers}/>}/>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />
         </Routes>

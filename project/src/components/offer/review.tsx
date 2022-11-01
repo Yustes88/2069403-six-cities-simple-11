@@ -1,12 +1,15 @@
+import { formatDate } from '../utile/utile';
+
 type ReviewProps = {
   avatar: string;
   userName: string;
   rateReview: number;
   reviewText: string;
+  date: string;
 }
 
 
-function Review({avatar, userName, rateReview, reviewText}:ReviewProps):JSX.Element {
+function Review({avatar, userName, date, rateReview, reviewText}:ReviewProps):JSX.Element {
   return(
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -27,7 +30,7 @@ function Review({avatar, userName, rateReview, reviewText}:ReviewProps):JSX.Elem
         <p className="reviews__text">
           {reviewText}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date}>{formatDate(date)}</time>
       </div>
     </li>
   );

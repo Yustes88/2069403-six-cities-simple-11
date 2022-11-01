@@ -1,7 +1,7 @@
 export type OfferTypeFull = {
-  id: number;
+  id: string;
   pictures: string[];
-  isPremium?: boolean;
+  isPremium: boolean;
   pricePerNight: number;
   propertyName: string;
   propertyDescription: string[];
@@ -24,7 +24,7 @@ type Review = {
   avatar: string;
   userName: string;
   rateReview: number;
-  date?: string;
+  date: string;
   reviewText: string;
 }
 
