@@ -6,6 +6,7 @@ import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import { Offers} from '../../types/offer-type-full';
+import LayoutCrads from '../layout-cards/layout-cards';
 
 type AppScreenProps = {
   totalAmount: number;
@@ -20,7 +21,9 @@ function App({ totalAmount, offers }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route index element={<Main totalAmount={totalAmount} offers={offers}/>} />
             <Route path={AppRoute.Login} element={<Login />} />
-            <Route path='offer/:id' element={<Room offers={offers}/>}/>
+            <Route path='offer/' element={<LayoutCrads/>}>
+              <Route path = ':id' element={<Room offers={offers}/>}/>
+            </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />
         </Routes>
