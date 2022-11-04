@@ -9,7 +9,7 @@ type MainPageProps = {
 function CardsList({offers}: MainPageProps):JSX.Element {
   const [, setActive] = useState(0);
 
-  function handleOnMouseEnter(id: string) {
+  function handleOnMouseOver(id: string) {
     setActive(Number(id));
   }
 
@@ -17,7 +17,7 @@ function CardsList({offers}: MainPageProps):JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <div key = {offer.id} onMouseEnter = {() => handleOnMouseEnter(offer.id)}>
+        <div key = {offer.id} onMouseOver = {() => handleOnMouseOver(offer.id)}>
           <Card offer={offer}/>
         </div>
       ))}
