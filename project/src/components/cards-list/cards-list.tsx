@@ -17,7 +17,7 @@ function CardsList({offers}: MainPageProps):JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <div key = {offer.id} onMouseEnter = {() => handleOnMouseEnter}>
+        <div key = {offer.id} onMouseEnter = {() => handleOnMouseEnter(offer.id)}>
           <Card offer={offer}/>
         </div>
       ))}
