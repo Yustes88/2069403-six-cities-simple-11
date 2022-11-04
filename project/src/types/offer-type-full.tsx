@@ -1,4 +1,4 @@
-export type OfferTypeFull = {
+export type OfferType = {
   id: string;
   pictures: string[];
   isPremium: boolean;
@@ -28,6 +28,6 @@ type Review = {
   reviewText: string;
 }
 
-export type Offers = OfferTypeFull[];
+export type Offers = OfferType[];
 
 

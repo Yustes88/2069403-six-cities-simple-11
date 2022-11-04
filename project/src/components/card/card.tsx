@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import { OfferTypeFull } from '../../types/offer-type-full';
+import { OfferType } from '../../types/offer-type-full';
 
 type CardProps = {
-  offer: OfferTypeFull;
-  onMouseEnter: (cardId:string)=> void;
+  offer: OfferType;
 }
 
-function Card({offer, onMouseEnter}:CardProps):JSX.Element {
+function Card({offer}:CardProps):JSX.Element {
   const {id, pricePerNight, isPremium, rate, propertyName, propertyType} = offer;
   return (
-    <article className="cities__card place-card" key={id} onMouseEnter={() => onMouseEnter(offer.id)}>
+    <article className="cities__card place-card" key={id}>
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>

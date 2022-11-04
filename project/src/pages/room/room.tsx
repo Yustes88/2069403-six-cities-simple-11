@@ -4,7 +4,7 @@ import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import PropertyDescription from '../../components/offer/property-description';
 import Review from '../../components/offer/review';
-import { Offers, OfferTypeFull } from '../../types/offer-type-full';
+import { Offers } from '../../types/offer-type-full';
 
 type RoomProps = {
   offers: Offers;
@@ -12,9 +12,9 @@ type RoomProps = {
 
 function Room({offers}: RoomProps): JSX.Element {
   const {id} = useParams();
-  const offer = offers.find((item) => item.id === id) as OfferTypeFull;
-  return (
-    <>
+  const offer = offers.find((item) => item.id === id);
+  if(offer) {
+    return (
       <main className="page__main page__main--property" key={offer.id}>
         <section className="property" >
           <div className="property__gallery-container container">
@@ -48,7 +48,7 @@ function Room({offers}: RoomProps): JSX.Element {
                   {offer.bedroomNumber} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.maxGuests} adults
+                    Max {offer.maxGuests} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -86,7 +86,7 @@ function Room({offers}: RoomProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews &middot;{' '}
+                    Reviews &middot;{' '}
                   <span className="reviews__amount">{offer.reviews.length}</span>
                 </h2>
                 <ul className="reviews__list">
@@ -113,7 +113,7 @@ function Room({offers}: RoomProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">
-              Other places in the neighbourhood
+                Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
@@ -133,7 +133,7 @@ function Room({offers}: RoomProps): JSX.Element {
                     <div className="place-card__price">
                       <b className="place-card__price-value">&euro;80</b>
                       <span className="place-card__price-text">
-                        &#47;&nbsp;night
+                          &#47;&nbsp;night
                       </span>
                     </div>
                   </div>
@@ -167,7 +167,7 @@ function Room({offers}: RoomProps): JSX.Element {
                     <div className="place-card__price">
                       <b className="place-card__price-value">&euro;132</b>
                       <span className="place-card__price-text">
-                        &#47;&nbsp;night
+                          &#47;&nbsp;night
                       </span>
                     </div>
                   </div>
@@ -204,7 +204,7 @@ function Room({offers}: RoomProps): JSX.Element {
                     <div className="place-card__price">
                       <b className="place-card__price-value">&euro;180</b>
                       <span className="place-card__price-text">
-                        &#47;&nbsp;night
+                          &#47;&nbsp;night
                       </span>
                     </div>
                   </div>
@@ -224,9 +224,16 @@ function Room({offers}: RoomProps): JSX.Element {
           </section>
         </div>
       </main>
-      )
-    </>
-  );
+    );
+  } else {
+    return (
+      <main className="page__main page__main--property">
+        <section className="property" >
+          <h1>No room found</h1>;
+        </section>
+      </main>
+    );
+  }
 }
 
 export default Room;
