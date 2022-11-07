@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import Logo from '../../components/logo/logo';
 
 function RoomNotLogged(): JSX.Element {
   return(
