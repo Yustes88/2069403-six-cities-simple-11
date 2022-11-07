@@ -1,8 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Outlet } from 'react-router-dom';
 import Logo from '../logo/logo';
 
-function LayoutCrads():JSX.Element {
+function Header():JSX.Element {
   return (
     <>
       <Helmet>
@@ -32,9 +31,8 @@ function LayoutCrads():JSX.Element {
           </div>
         </div>
       </header>
-      <Outlet/>
     </>
   );
 }
 
-export default LayoutCrads;
+export default Header;
