@@ -7,6 +7,7 @@ function RoomNotLogged(): JSX.Element {
       <Helmet>
         <title>Room</title>
       </Helmet>
+
       <Header/>
 
       <main className="page__main page__main--property">

@@ -1,4 +1,4 @@
-const getRandomInteger = (a = 0, b = 1) => {
+export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
 
@@ -10,5 +10,3 @@ export const formatDate = (isoDate: string) => {
 
   return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
 };
-
-export default getRandomInteger;

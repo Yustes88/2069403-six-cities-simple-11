@@ -18,7 +18,9 @@ function Room({ offers }: RoomProps): JSX.Element {
   if (offer) {
     return (
       <>
+
         <Header />
+
         <main className="page__main page__main--property" key={offer.id}>
           <section className="property">
             <div className="property__gallery-container container">

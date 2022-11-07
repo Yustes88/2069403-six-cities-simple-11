@@ -1,4 +1,4 @@
-import getRandomInteger from '../components/utils/utils';
+import {getRandomInteger} from '../components/utils/utils';
 import { Offers } from '../types/offer-type-full';
 
 const IMG_URL = 'img/apartment';
