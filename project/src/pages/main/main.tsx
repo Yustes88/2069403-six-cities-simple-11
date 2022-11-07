@@ -1,42 +1,22 @@
 import { Helmet } from 'react-helmet-async';
-import Card from '../../components/card/card';
-import Logo from '../../components/logo/logo';
+import CardsList from '../../components/cards-list/cards-list';
+import Header from '../../components/header/header';
+import { Offers } from '../../types/offer-type-full';
 
 type MainPageProps = {
   totalAmount: number;
+  offers: Offers;
 }
 
-const cardInfo = [{title: 'Apartment', id: 1}, {title: 'Private room', id: 2}, {title: 'Apartment', id: 3}, {title: 'Apartment', id: 4}, {title: 'Private room', id: 5}];
 
-
-function Main({totalAmount}: MainPageProps):JSX.Element {
+function Main({totalAmount, offers}: MainPageProps):JSX.Element {
   return (
     <>
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo/>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#link">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+
+      <Header/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -96,9 +76,7 @@ function Main({totalAmount}: MainPageProps):JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {cardInfo.map((item) => (<Card title={item.title} key={item.id}/>))}
-              </div>
+              <CardsList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
