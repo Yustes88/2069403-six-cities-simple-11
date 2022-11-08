@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { OfferType } from "../../types/types";
+import { Link } from 'react-router-dom';
+import { OfferType } from '../../types/types';
 
 type CardProps = {
   offer: OfferType;
@@ -15,7 +15,7 @@ function Card({ offer }: CardProps): JSX.Element {
           <span>Premium</span>
         </div>
       ) : (
-        ""
+        ''
       )}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
