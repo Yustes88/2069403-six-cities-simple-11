@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
-import CommentForm from "../../components/comment-form/comment-form";
-import Header from "../../components/header/header";
-import Gallery from "../../components/offer/gallery";
-import HouseItems from "../../components/offer/house-items";
-import PropertyDescription from "../../components/offer/property-description";
-import Review from "../../components/offer/review";
-import { Offers } from "../../types/types";
-import NotFound from "../404/not-found";
+import { useParams } from 'react-router-dom';
+import CommentForm from '../../components/comment-form/comment-form';
+import Header from '../../components/header/header';
+import Gallery from '../../components/offer/gallery';
+import HouseItems from '../../components/offer/house-items';
+import PropertyDescription from '../../components/offer/property-description';
+import Review from '../../components/offer/review';
+import { Offers } from '../../types/types';
+import NotFound from '../404/not-found';
 
 type RoomProps = {
   offers: Offers;
@@ -34,14 +34,14 @@ function Room({ offers }: RoomProps): JSX.Element {
                     <span>Premium</span>
                   </div>
                 ) : (
-                  ""
+                  ''
                 )}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">{offer.propertyName}</h1>
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: "80%" }}></span>
+                    <span style={{ width: '80%' }}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
@@ -87,7 +87,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                       {offer.host.hostName}
                     </span>
                     <span className="property__user-status">
-                      {offer.host.isPro ? "Pro" : ""}
+                      {offer.host.isPro ? 'Pro' : ''}
                     </span>
                   </div>
                   <div className="property__description">
@@ -98,7 +98,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">
-                    Reviews &middot;{" "}
+                    Reviews &middot;{' '}
                     <span className="reviews__amount">
                       {offer.reviews.length}
                     </span>
@@ -153,7 +153,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{ width: "80%" }}></span>
+                        <span style={{ width: '80%' }}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -187,7 +187,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{ width: "80%" }}></span>
+                        <span style={{ width: '80%' }}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>
@@ -224,7 +224,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                     </div>
                     <div className="place-card__rating rating">
                       <div className="place-card__stars rating__stars">
-                        <span style={{ width: "100%" }}></span>
+                        <span style={{ width: '100%' }}></span>
                         <span className="visually-hidden">Rating</span>
                       </div>
                     </div>

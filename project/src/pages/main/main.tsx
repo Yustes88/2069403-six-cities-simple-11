@@ -16,7 +16,7 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
     undefined
   );
 
-  const onListItemHover = (id: number) => {
+  const onListItemEnter = (id: number) => {
     const currentPoint = offers.find((offer) => Number(offer.id) === id);
 
     setSelectedOffer(currentPoint);
@@ -103,7 +103,7 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CardsList offers={offers} onListItemEnter={onListItemHover}/>
+              <CardsList offers={offers} onListItemEnter={onListItemEnter}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
