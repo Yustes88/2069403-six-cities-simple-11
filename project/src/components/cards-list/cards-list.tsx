@@ -1,24 +1,22 @@
-import { useState } from 'react';
-import { Offers } from '../../types/offer-type-full';
+import { Offers } from '../../types/types';
 import Card from '../card/card';
 
 type MainPageProps = {
   offers: Offers;
-}
+  onListItemEnter: (id: number) => void;
+};
 
-function CardsList({offers}: MainPageProps):JSX.Element {
-  const [, setActive] = useState(0);
+function CardsList({ offers, onListItemEnter }: MainPageProps): JSX.Element {
 
   function handleOnMouseOver(id: string) {
-    setActive(Number(id));
+    onListItemEnter(Number(id));
   }
-
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <div key = {offer.id} onMouseOver = {() => handleOnMouseOver(offer.id)}>
-          <Card offer={offer}/>
+        <div key={offer.id} onMouseOver={() => handleOnMouseOver(offer.id)}>
+          <Card offer={offer} />
         </div>
       ))}
     </div>

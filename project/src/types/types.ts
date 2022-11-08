@@ -4,6 +4,8 @@ export type OfferType = {
   isPremium: boolean;
   pricePerNight: number;
   propertyName: string;
+  lat: number;
+  lng: number;
   propertyDescription: string[];
   propertyType: string;
   rate: number;
@@ -27,6 +29,13 @@ type Review = {
   date: string;
   reviewText: string;
 }
+
+export type City = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
 
 export type Offers = OfferType[];
 

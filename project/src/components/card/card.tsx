@@ -1,22 +1,32 @@
-import { Link } from 'react-router-dom';
-import { OfferType } from '../../types/offer-type-full';
+import { Link } from "react-router-dom";
+import { OfferType } from "../../types/types";
 
 type CardProps = {
   offer: OfferType;
-}
+};
 
-function Card({offer}:CardProps):JSX.Element {
-  const {id, pricePerNight, isPremium, rate, propertyName, propertyType} = offer;
+function Card({ offer }: CardProps): JSX.Element {
+  const { id, pricePerNight, isPremium, rate, propertyName, propertyType } =
+    offer;
   return (
     <article className="cities__card place-card" key={id}>
-      {isPremium ?
+      {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
-        </div> : ''}
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`offer/${offer.id}`}>
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
+          <img
+            className="place-card__image"
+            src="img/apartment-01.jpg"
+            width="260"
+            height="200"
+            alt="Place"
+          />
         </Link>
       </div>
       <div className="place-card__info">
@@ -25,7 +35,6 @@ function Card({offer}:CardProps):JSX.Element {
             <b className="place-card__price-value">&euro;{pricePerNight}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -41,6 +50,5 @@ function Card({offer}:CardProps):JSX.Element {
     </article>
   );
 }
-
 
 export default Card;
