@@ -14,9 +14,7 @@ function Card({ offer }: CardProps): JSX.Element {
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
-      ) : (
-        ''
-      )}
+      ) : null}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`offer/${offer.id}`}>
