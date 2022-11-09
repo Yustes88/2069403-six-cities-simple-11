@@ -5,7 +5,7 @@ import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import PropertyDescription from '../../components/offer/property-description';
 import Review from '../../components/offer/review';
-import { Offers } from '../../types/offer-type-full';
+import { Offers } from '../../types/types';
 import NotFound from '../404/not-found';
 
 type RoomProps = {
@@ -18,7 +18,6 @@ function Room({ offers }: RoomProps): JSX.Element {
   if (offer) {
     return (
       <>
-
         <Header />
 
         <main className="page__main page__main--property" key={offer.id}>
@@ -245,7 +244,7 @@ function Room({ offers }: RoomProps): JSX.Element {
     return (
       <main className="page__main page__main--property">
         <section className="property">
-          <NotFound/>
+          <NotFound />
         </section>
       </main>
     );

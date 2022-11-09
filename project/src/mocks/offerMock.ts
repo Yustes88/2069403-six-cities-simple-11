@@ -1,5 +1,5 @@
-import {getRandomInteger} from '../components/utils/utils';
-import { Offers } from '../types/offer-type-full';
+import { getRandomInteger } from '../components/utils/utils';
+import { Offers } from '../types/types';
 
 const IMG_URL = 'img/apartment';
 const getPicture = () => `${IMG_URL}-0${getRandomInteger(1, 3)}.jpg`;
@@ -11,6 +11,8 @@ export const offerMock: Offers = [
     isPremium: true,
     pricePerNight: 50,
     propertyName: 'Lorem ipsum dolor sit amet, consectetur adipiscing eli',
+    lat: 52.3909553943508,
+    lng: 4.85309666406198,
     propertyDescription: [
       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
@@ -50,6 +52,8 @@ export const offerMock: Offers = [
     isPremium: true,
     pricePerNight: 120,
     propertyName: 'Lorem ipsum dolor sit amet, consectetur adipiscing eli',
+    lat: 52.3609553943508,
+    lng: 4.85309666406198,
     propertyDescription: [
       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
@@ -89,6 +93,8 @@ export const offerMock: Offers = [
     isPremium: false,
     pricePerNight: 100,
     propertyName: 'Lorem ipsum dolor sit amet',
+    lat: 52.3909553943508,
+    lng: 4.929309666406198,
     propertyDescription: [
       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
@@ -128,6 +134,8 @@ export const offerMock: Offers = [
     isPremium: true,
     pricePerNight: 150,
     propertyName: 'Lorem ipsum dolor sit amet, consectetur adipiscing eli',
+    lat: 52.3809553943508,
+    lng: 4.939309666406198,
     propertyDescription: [
       'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
       'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
