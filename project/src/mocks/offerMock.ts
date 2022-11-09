@@ -159,14 +159,6 @@ export const offerMock: Offers = [
         reviewText:
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
-      {
-        avatar: 'img/avatar-max.jpg',
-        userName: 'Max',
-        rateReview: 3.6,
-        date: '2019-04-29T12:00:00Z',
-        reviewText:
-          'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
-      },
     ],
   },
 ];

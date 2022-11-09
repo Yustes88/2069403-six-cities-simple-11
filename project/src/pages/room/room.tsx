@@ -4,7 +4,7 @@ import Header from '../../components/header/header';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import PropertyDescription from '../../components/offer/property-description';
-import Review from '../../components/offer/review';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 import { Offers } from '../../types/types';
 import NotFound from '../404/not-found';
 
@@ -103,21 +103,7 @@ function Room({ offers }: RoomProps): JSX.Element {
                       {offer.reviews.length}
                     </span>
                   </h2>
-                  <ul className="reviews__list">
-                    {offer.reviews.map((review, reviewId) => {
-                      const keyValue = reviewId;
-                      return (
-                        <Review
-                          avatar={review.avatar}
-                          userName={review.userName}
-                          rateReview={review.rateReview}
-                          reviewText={review.reviewText}
-                          key={keyValue}
-                          date={review.date}
-                        />
-                      );
-                    })}
-                  </ul>
+                  <ReviewsList offer = {offer}/>
                   <CommentForm />
                 </section>
               </div>
