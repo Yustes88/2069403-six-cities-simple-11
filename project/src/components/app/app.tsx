@@ -25,7 +25,7 @@ function App({ totalAmount, offers, city }: AppScreenProps): JSX.Element {
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} />} />
+              <Route path={AppRoute.Id} element={<Room offers={offers} city ={city} />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

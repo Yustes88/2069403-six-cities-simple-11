@@ -1,18 +1,23 @@
 import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import PropertyDescription from '../../components/offer/property-description';
-import ReviewsList from '../../components/reviews-list/reviews-list';
-import { Offers } from '../../types/types';
+import ReviewsList from '../../components/review-list/reviews-list';
+import { City, Offers } from '../../types/types';
 import NotFound from '../404/not-found';
 
 type RoomProps = {
   offers: Offers;
+  city: City;
 };
 
-function Room({ offers }: RoomProps): JSX.Element {
+function Room({ offers, city }: RoomProps): JSX.Element {
+  const highlightChosenRoom = (id: number) =>
+    offers.find((offer) => Number(offer.id) === id);
+
   const { id } = useParams();
   const offer = offers.find((item) => item.id === id);
   if (offer) {
@@ -103,12 +108,18 @@ function Room({ offers }: RoomProps): JSX.Element {
                       {offer.reviews.length}
                     </span>
                   </h2>
-                  <ReviewsList offer = {offer}/>
+                  <ReviewsList offer={offer} />
                   <CommentForm />
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+              <Map
+                city={city}
+                offers={offers}
+                selectedOffer={highlightChosenRoom(Number(offer.id))}
+              />
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
