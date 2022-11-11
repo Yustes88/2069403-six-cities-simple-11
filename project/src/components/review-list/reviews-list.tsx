@@ -9,19 +9,16 @@ type ReviewProps = {
 function ReviewsList({offer}: ReviewProps):JSX.Element {
   return(
     <ul className="reviews__list">
-      {offer.reviews.map((review, reviewId) => {
-        const keyValue = reviewId;
-        return (
-          <Review
-            avatar={review.avatar}
-            userName={review.userName}
-            rateReview={review.rateReview}
-            reviewText={review.reviewText}
-            key={keyValue}
-            date={review.date}
-          />
-        );
-      })}
+      {offer.reviews.map((review) => (
+        <Review
+          avatar={review.avatar}
+          userName={review.userName}
+          rateReview={review.rateReview}
+          reviewText={review.reviewText}
+          key={review.id}
+          date={review.date}
+        />
+      ))}
     </ul>
   );
 }

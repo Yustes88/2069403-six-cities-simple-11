@@ -18,7 +18,7 @@ function Card({ offer, type }: CardProps): JSX.Element {
       ) : null}
 
       <div className={`${type === 'cities' ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={pictures[0]}
@@ -42,7 +42,7 @@ function Card({ offer, type }: CardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>{propertyName}</Link>
+          {propertyName}
         </h2>
         <p className="place-card__type">{propertyType}</p>
       </div>

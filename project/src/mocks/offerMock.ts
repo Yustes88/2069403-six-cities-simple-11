@@ -29,6 +29,7 @@ export const offerMock: Offers = [
     },
     reviews: [
       {
+        id: 1,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -37,6 +38,7 @@ export const offerMock: Offers = [
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
       {
+        id: 2,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -70,6 +72,7 @@ export const offerMock: Offers = [
     },
     reviews: [
       {
+        id: 1,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -78,6 +81,7 @@ export const offerMock: Offers = [
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
       {
+        id: 2,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -111,6 +115,7 @@ export const offerMock: Offers = [
     },
     reviews: [
       {
+        id: 1,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -119,6 +124,7 @@ export const offerMock: Offers = [
           'Ac tortor vitae purus faucibus ornare suspendisse. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat.',
       },
       {
+        id: 2,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
@@ -152,6 +158,7 @@ export const offerMock: Offers = [
     },
     reviews: [
       {
+        id: 1,
         avatar: 'img/avatar-max.jpg',
         userName: 'Max',
         rateReview: 3.6,
