@@ -29,6 +29,10 @@ function Room({ offers, city }: RoomProps): JSX.Element {
     setSelectedOffer(currentPoint);
   };
 
+  const scrollToTop = ():void => {
+    window.scroll(0, 0);
+  };
+
 
   if (offer) {
     return (
@@ -136,8 +140,8 @@ function Room({ offers, city }: RoomProps): JSX.Element {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <div className="near-places__list places__list">
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} type = {'nearby'} />
+              <div className="near-places__list places__list" onClick = {scrollToTop}>
+                <CardsList offers={offers} onListItemEnter={onListItemEnter} type = {'nearby'}/>
               </div>
             </section>
           </div>

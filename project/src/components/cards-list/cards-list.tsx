@@ -17,7 +17,7 @@ function CardsList({ offers, type, onListItemEnter }: MainPageProps): JSX.Elemen
     <>
       {offers.map((offer) => (
         <div key={offer.id} onMouseOver={() => handleOnMouseOver(offer.id)}>
-          <Card offer={offer} type={type} />
+          <Card offer={offer} type={type}/>
         </div>
       ))}
     </>
