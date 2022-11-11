@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
@@ -7,7 +8,7 @@ import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import PropertyDescription from '../../components/offer/property-description';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { City, Offers } from '../../types/types';
+import { City, Offers, OfferType } from '../../types/types';
 import NotFound from '../404/not-found';
 
 type RoomProps = {
@@ -16,12 +17,15 @@ type RoomProps = {
 };
 
 function Room({ offers, city }: RoomProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
+    undefined
+  );
 
-  const highlightChosenRoom = (id: number) =>
-    offers.find((offer) => Number(offer.id) === id);
+  const onListItemEnter = (id: number) => {
+    const currentPoint = offers.find((offer) => Number(offer.id) === id);
 
-  const onListItemEnter = (id: number) => offers.find((offer) => Number(offer.id) === id);
-
+    setSelectedOffer(currentPoint);
+  };
 
   const { id } = useParams();
   const offer = offers.find((item) => item.id === id);
@@ -122,7 +126,7 @@ function Room({ offers, city }: RoomProps): JSX.Element {
               <Map
                 city={city}
                 offers={offers}
-                selectedOffer={highlightChosenRoom(Number(offer.id))}
+                selectedOffer={selectedOffer}
               />
             </section>
           </section>
