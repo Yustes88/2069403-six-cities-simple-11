@@ -17,18 +17,19 @@ type RoomProps = {
 };
 
 function Room({ offers, city }: RoomProps): JSX.Element {
+  const { id } = useParams();
+  const offer = offers.find((item) => item.id === id);
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
-    undefined
+    offer
   );
 
-  const onListItemEnter = (id: number) => {
-    const currentPoint = offers.find((offer) => Number(offer.id) === id);
+  const onListItemEnter = (itemId: number) => {
+    const currentPoint = offers.find((offerItem) => Number(offerItem.id) === itemId);
 
     setSelectedOffer(currentPoint);
   };
 
-  const { id } = useParams();
-  const offer = offers.find((item) => item.id === id);
+
   if (offer) {
     return (
       <>
