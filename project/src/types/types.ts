@@ -23,6 +23,7 @@ type Host = {
 }
 
 type Review = {
+  id: number;
   avatar: string;
   userName: string;
   rateReview: number;

@@ -103,7 +103,9 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CardsList offers={offers} onListItemEnter={onListItemEnter}/>
+              <div className="cities__places-list places__list tabs__content">
+                <CardsList offers={offers} onListItemEnter={onListItemEnter} type = {'cities'}/>
+              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
