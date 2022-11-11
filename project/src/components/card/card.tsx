@@ -3,24 +3,25 @@ import { OfferType } from '../../types/types';
 
 type CardProps = {
   offer: OfferType;
+  type: 'nearby' | 'cities';
 };
 
-function Card({ offer }: CardProps): JSX.Element {
-  const { id, pricePerNight, isPremium, rate, propertyName, propertyType } =
+function Card({ offer, type }: CardProps): JSX.Element {
+  const { id, pricePerNight, isPremium, rate, propertyName, propertyType, pictures } =
     offer;
   return (
-    <article className="cities__card place-card" key={id}>
+    <article className={`${type === 'cities' ? 'cities' : 'near-places'}__card place-card`} key={id}>
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       ) : null}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${type === 'cities' ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <Link to={`offer/${offer.id}`}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={pictures[0]}
             width="260"
             height="200"
             alt="Place"
