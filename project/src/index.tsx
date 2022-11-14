@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { CITY } from './mocks/city';
 import {offerMock} from './mocks/offerMock';
+import { store } from './store';
 
 const Setting = {
   totalAmount: 405,
@@ -14,10 +16,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      totalAmount={Setting.totalAmount}
-      offers = {offerMock}
-      city = {CITY}
-    />
+    <Provider store = {store}>
+      <App
+        totalAmount={Setting.totalAmount}
+        offers = {offerMock}
+        city = {CITY}
+      />
+    </Provider>
   </React.StrictMode>,
 );
