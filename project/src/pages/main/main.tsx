@@ -4,18 +4,24 @@ import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { displayOffers, switchCity } from '../../store/action';
 import { City, Offers, OfferType } from '../../types/types';
 
 type MainPageProps = {
   totalAmount: number;
   offers: Offers;
   city: City;
+  cities: string[];
 };
 
-function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
+function Main({ totalAmount, offers, city, cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
+  const selectedCity = useAppSelector((state) => state.currentCity);
+
+  const dispatch = useAppDispatch();
 
   const onListItemEnter = (id: number) => {
     const currentPoint = offers.find((offer) => Number(offer.id) === id);
@@ -32,7 +38,11 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesList/>
+        <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={(cityTitle) => {
+          dispatch(switchCity(cityTitle));
+          dispatch(displayOffers(cityTitle));
+        }}
+        />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">

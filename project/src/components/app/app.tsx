@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, citiesList } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
@@ -22,7 +22,7 @@ function App({ totalAmount, offers, reviews, city }: AppScreenProps): JSX.Elemen
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main totalAmount={totalAmount} offers={offers} city={city} />}
+              element={<Main totalAmount={totalAmount} offers={offers} city={city} cities = {citiesList} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>

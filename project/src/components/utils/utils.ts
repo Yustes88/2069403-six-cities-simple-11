@@ -1,3 +1,10 @@
+import { offerMock } from '../../mocks/offerMock';
+
+
+export const filteredOffersByCity = (currentCity: string) => {
+  offerMock.filter((offer) => offer.city.name === currentCity);
+};
+
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
