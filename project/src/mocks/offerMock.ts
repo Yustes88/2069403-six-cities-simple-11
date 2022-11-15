@@ -140,7 +140,39 @@ export const offerMock: Offers = [
     rating: 4.3,
     title: 'Id cursus metus aliquam eleifend.',
     type: 'Small Room',
-  }
+  }, {
+    bedrooms: 2,
+    city: {
+      location: {
+        latitude: 48.864716,
+        longitude: 2.349014,
+        zoom: 8,
+      },
+      name: 'Paris',
+    },
+    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat',
+    goods: ['Wifi', 'Heating', 'Kitchen', 'Cable TV', 'Pets'],
+    host: {
+      avatarUrl: 'img/avatar-max.jpg',
+      id: 1,
+      isPro: true,
+      name: 'Keks',
+    },
+    id: 5,
+    images: Array.from({ length: 6 }, getPicture),
+    isPremium: true,
+    location: {
+      latitude: 48.864824,
+      longitude: 2.334595,
+      zoom: 8,
+    },
+    maxAdults: 5,
+    previewImage: getRandomPic(),
+    price: 500,
+    rating: 3.9,
+    title: 'Lorem ipsum dolor sit amet, consectetur adipiscing eli',
+    type: 'Room',
+  },
 ];
 
 export const ReviewsMock: Reviews = [
@@ -150,7 +182,7 @@ export const ReviewsMock: Reviews = [
       id: 12,
       isPro: true,
       name: 'Isaac',
-      avatarUrl: 'https://11.react.pages.academy/static/avatar/3.jpg'
+      avatarUrl: 'img/avatar-max.jpg'
     },
     rating: 4,
     comment: 'We loved it so much, the house, the veiw, the location just great.. Highly reccomend :)',
@@ -183,7 +215,7 @@ export const ReviewsMock: Reviews = [
       id: 10,
       isPro: true,
       name: 'Isaac',
-      avatarUrl: 'img/avatar.jpg'
+      avatarUrl: 'img/avatar-max.jpg'
     },
     rating: 5,
     comment: 'Don/t listen to that cunt, it is awesome',
@@ -194,7 +226,7 @@ export const ReviewsMock: Reviews = [
       id: 9,
       isPro: false,
       name: 'Client',
-      avatarUrl: 'img/avatar.jpg'
+      avatarUrl: 'img/avatar-angelina.jpg'
     },
     rating: 4,
     comment: 'Just awesome',
