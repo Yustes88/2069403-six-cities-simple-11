@@ -5,15 +5,16 @@ import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
-import { City, Offers } from '../../types/types';
+import { City, Offers, Reviews } from '../../types/types';
 
 type AppScreenProps = {
   totalAmount: number;
   offers: Offers;
+  reviews: Reviews;
   city: City;
 };
 
-function App({ totalAmount, offers, city }: AppScreenProps): JSX.Element {
+function App({ totalAmount, offers, reviews, city }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,7 +26,7 @@ function App({ totalAmount, offers, city }: AppScreenProps): JSX.Element {
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} city ={city} />} />
+              <Route path={AppRoute.Id} element={<Room offers={offers} city ={city} reviews = {reviews} />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

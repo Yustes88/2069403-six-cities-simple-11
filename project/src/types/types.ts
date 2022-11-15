@@ -1,34 +1,72 @@
+// export type OfferType = {
+//   id: string;
+//   pictures: string[];
+//   isPremium: boolean;
+//   pricePerNight: number;
+//   propertyName: string;
+//   lat: number;
+//   lng: number;
+//   propertyDescription: string[];
+//   propertyType: string;
+//   rate: number;
+//   bedroomNumber: number;
+//   maxGuests: number;
+//   houseItems: string[];
+//   host: Host;
+//   reviews: Review[];
+// }
+
 export type OfferType = {
-  id: string;
-  pictures: string[];
-  isPremium: boolean;
-  pricePerNight: number;
-  propertyName: string;
-  lat: number;
-  lng: number;
-  propertyDescription: string[];
-  propertyType: string;
-  rate: number;
-  bedroomNumber: number;
-  maxGuests: number;
-  houseItems: string[];
-  host: Host;
-  reviews: Review[];
-}
-
-type Host = {
-    avatar: string;
-    hostName: string;
+  bedrooms: number;
+  city: {
+    location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  name: string;
+  };
+  description: string;
+  goods: string[];
+  host: {
+    avatarUrl: string;
+    id: number;
     isPro: boolean;
-}
-
-type Review = {
+    name: string;
+  };
   id: number;
-  avatar: string;
-  userName: string;
-  rateReview: number;
+  images: string[];
+  isPremium: boolean;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
+  }
+
+// type Host = {
+//     avatar: string;
+//     hostName: string;
+//     isPro: boolean;
+// }
+
+export type ReviewType = {
+  id: number;
+  user : {
+    id: number;
+    isPro: boolean;
+    name: string;
+    avatarUrl: string;
+  };
+  rating: number;
   date: string;
-  reviewText: string;
+  comment: string;
 }
 
 export type City = {
@@ -41,3 +79,4 @@ export type City = {
 export type Offers = OfferType[];
 
 
+export type Reviews = ReviewType[];

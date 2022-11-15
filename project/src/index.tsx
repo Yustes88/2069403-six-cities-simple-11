@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { CITY } from './mocks/city';
-import {offerMock} from './mocks/offerMock';
+import {offerMock, ReviewsMock} from './mocks/offerMock';
 import { store } from './store';
 
 const Setting = {
@@ -20,6 +20,7 @@ root.render(
       <App
         totalAmount={Setting.totalAmount}
         offers = {offerMock}
+        reviews = {ReviewsMock}
         city = {CITY}
       />
     </Provider>

@@ -4,20 +4,20 @@ import Card from '../card/card';
 type MainPageProps = {
   offers: Offers;
   onListItemEnter: (id: number) => void;
-  type: 'nearby' | 'cities';
+  cardType: 'nearby' | 'cities';
 };
 
-function CardsList({ offers, type, onListItemEnter }: MainPageProps): JSX.Element {
+function CardsList({ offers, cardType, onListItemEnter }: MainPageProps): JSX.Element {
 
-  function handleOnMouseOver(id: string) {
-    onListItemEnter(Number(id));
+  function handleOnMouseOver(id: number) {
+    onListItemEnter(id);
   }
 
   return (
     <>
       {offers.map((offer) => (
         <div key={offer.id} onMouseOver={() => handleOnMouseOver(offer.id)}>
-          <Card offer={offer} type={type}/>
+          <Card offer={offer} cardType={cardType}/>
         </div>
       ))}
     </>

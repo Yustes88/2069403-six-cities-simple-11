@@ -6,19 +6,19 @@ import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
-import PropertyDescription from '../../components/offer/property-description';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { City, Offers, OfferType } from '../../types/types';
+import { City, Offers, OfferType, Reviews } from '../../types/types';
 import NotFound from '../404/not-found';
 
 type RoomProps = {
   offers: Offers;
+  reviews: Reviews;
   city: City;
 };
 
-function Room({ offers, city }: RoomProps): JSX.Element {
+function Room({ offers, reviews, city }: RoomProps): JSX.Element {
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === id);
+  const offer = offers.find((item) => item.id === Number(id));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
@@ -43,7 +43,7 @@ function Room({ offers, city }: RoomProps): JSX.Element {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                <Gallery pictures={offer.pictures} />
+                <Gallery pictures={offer.images} />
               </div>
             </div>
             <div className="property__container container" key={offer.id}>
@@ -56,73 +56,70 @@ function Room({ offers, city }: RoomProps): JSX.Element {
                   ''
                 )}
                 <div className="property__name-wrapper">
-                  <h1 className="property__name">{offer.propertyName}</h1>
+                  <h1 className="property__name">{offer.title}</h1>
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: '80%' }}></span>
+                    <span style={{ width: `${
+                      offer.rating * 20}%` }}
+                    >
+                    </span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    {offer.rate}
+                    {offer.rating}
                   </span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {offer.propertyType}
+                    {offer.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    {offer.bedroomNumber} Bedrooms
+                    {offer.bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max {offer.maxGuests} adults
+                    Max {offer.maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
                   <b className="property__price-value">
-                    &euro;{offer.pricePerNight}
+                    &euro;{offer.price}
                   </b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    <HouseItems houseItems={offer.houseItems} />
+                    <HouseItems houseItems={offer.goods} />
                   </ul>
                 </div>
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                    <div className="property__avatar-wrapper  property__avatar-wrapper--pro user__avatar-wrapper">
                       <img
                         className="property__avatar user__avatar"
-                        src={offer.host.avatar}
+                        src={offer.host.avatarUrl}
                         width="74"
                         height="74"
                         alt="Host avatar"
                       />
                     </div>
                     <span className="property__user-name">
-                      {offer.host.hostName}
+                      {offer.host.name}
                     </span>
                     <span className="property__user-status">
                       {offer.host.isPro ? 'Pro' : ''}
                     </span>
                   </div>
                   <div className="property__description">
-                    <PropertyDescription
-                      propertyDescription={offer.propertyDescription}
-                    />
+                    <p className="property__text">
+                      {offer.description}
+                    </p>
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">
-                    Reviews &middot;{' '}
-                    <span className="reviews__amount">
-                      {offer.reviews.length}
-                    </span>
-                  </h2>
-                  <ReviewsList offer={offer} />
+                  <ReviewsList reviews={reviews} offer={offer}/>
                   <CommentForm />
                 </section>
               </div>
@@ -141,7 +138,7 @@ function Room({ offers, city }: RoomProps): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list" onClick = {scrollToTop}>
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} type = {'nearby'}/>
+                <CardsList offers={offers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
           </div>

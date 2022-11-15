@@ -12,6 +12,7 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'img/markers/marker-current.svg';
 
+export const citiesList = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const INITIAL_CITY = 'Paris';
 
