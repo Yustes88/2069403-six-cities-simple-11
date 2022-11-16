@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { CITY } from './mocks/city';
+import { Cities } from './const';
+
 import {offerMock, ReviewsMock} from './mocks/offerMock';
 import { store } from './store';
 
@@ -21,7 +22,8 @@ root.render(
         totalAmount={Setting.totalAmount}
         offers = {offerMock}
         reviews = {ReviewsMock}
-        city = {CITY}
+        cities = {Cities}
+
       />
     </Provider>
   </React.StrictMode>,

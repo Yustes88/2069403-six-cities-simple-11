@@ -9,19 +9,21 @@ import HouseItems from '../../components/offer/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
 import { City, Offers, OfferType, Reviews } from '../../types/types';
 import NotFound from '../404/not-found';
+import { useAppSelector } from '../../hooks';
 
 type RoomProps = {
   offers: Offers;
   reviews: Reviews;
-  city: City;
+  cities: City[];
 };
 
-function Room({ offers, reviews, city }: RoomProps): JSX.Element {
+function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
   const { id } = useParams();
   const offer = offers.find((item) => item.id === Number(id));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
+  const selectedCity = useAppSelector((state) => state.currentCity);
 
   const onListItemEnter = (itemId: number) => {
     const currentPoint = offers.find((offerItem) => Number(offerItem.id) === itemId);
@@ -126,7 +128,7 @@ function Room({ offers, reviews, city }: RoomProps): JSX.Element {
             </div>
             <section className="property__map map">
               <Map
-                city={city}
+                city={selectedCity}
                 offers={offers}
                 selectedOffer={selectedOffer}
               />

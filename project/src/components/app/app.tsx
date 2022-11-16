@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, citiesList } from '../../const';
+import { AppRoute} from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
@@ -11,10 +11,10 @@ type AppScreenProps = {
   totalAmount: number;
   offers: Offers;
   reviews: Reviews;
-  city: City;
+  cities: City[];
 };
 
-function App({ totalAmount, offers, reviews, city }: AppScreenProps): JSX.Element {
+function App({ totalAmount, offers, reviews, cities }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -22,11 +22,11 @@ function App({ totalAmount, offers, reviews, city }: AppScreenProps): JSX.Elemen
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main totalAmount={totalAmount} offers={offers} city={city} cities = {citiesList} />}
+              element={<Main totalAmount={totalAmount} offers={offers} cities = {cities} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} city ={city} reviews = {reviews} />} />
+              <Route path={AppRoute.Id} element={<Room offers={offers} reviews = {reviews} cities = {cities} />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

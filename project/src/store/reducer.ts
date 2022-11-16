@@ -1,11 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { filteredOffersByCity } from '../components/utils/utils';
-import { INITIAL_CITY } from '../const';
+import { Cities } from '../const';
+import { City, Offers } from '../types/types';
 import { displayOffers, switchCity } from './action';
 
-const initialState = {
-  currentCity: INITIAL_CITY,
-  offersList: filteredOffersByCity(INITIAL_CITY),
+type ReducerTypes = {
+  currentCity: City;
+  offersList: Offers;
+};
+
+const initialState: ReducerTypes = {
+  currentCity: Cities[0],
+  offersList: [],
 };
 
 
@@ -15,7 +20,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.currentCity = action.payload;
     })
     .addCase(displayOffers, (state, action) => {
-      state.offersList = filteredOffersByCity(action.payload);
+      state.offersList = action.payload;
     });
 });
 

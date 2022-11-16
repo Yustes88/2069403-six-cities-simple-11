@@ -4,22 +4,23 @@ import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
+// import { filteredOffersByCity } from '../../components/utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { displayOffers, switchCity } from '../../store/action';
+import { switchCity } from '../../store/action';
 import { City, Offers, OfferType } from '../../types/types';
 
 type MainPageProps = {
   totalAmount: number;
   offers: Offers;
-  city: City;
-  cities: string[];
+  cities: City[];
 };
 
-function Main({ totalAmount, offers, city, cities }: MainPageProps): JSX.Element {
+function Main({ totalAmount, offers, cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
+  // const filteredOffers = useAppSelector((state) => filteredOffersByCity(state.offersList));
 
   const dispatch = useAppDispatch();
 
@@ -40,7 +41,6 @@ function Main({ totalAmount, offers, city, cities }: MainPageProps): JSX.Element
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={(cityTitle) => {
           dispatch(switchCity(cityTitle));
-          dispatch(displayOffers(cityTitle));
         }}
         />
         <div className="cities">
@@ -48,7 +48,7 @@ function Main({ totalAmount, offers, city, cities }: MainPageProps): JSX.Element
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {totalAmount} places to stay in Amsterdam
+                {totalAmount} places to stay in {selectedCity.name}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -82,7 +82,7 @@ function Main({ totalAmount, offers, city, cities }: MainPageProps): JSX.Element
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} offers={offers} selectedOffer={selectedOffer} />
+                <Map city={selectedCity} offers={offers} selectedOffer={selectedOffer} />
               </section>
             </div>
           </div>
