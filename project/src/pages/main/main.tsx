@@ -10,12 +10,11 @@ import { switchCity } from '../../store/action';
 import { City, Offers, OfferType } from '../../types/types';
 
 type MainPageProps = {
-  totalAmount: number;
   offers: Offers;
   cities: City[];
 };
 
-function Main({ totalAmount, offers, cities }: MainPageProps): JSX.Element {
+function Main({offers, cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
@@ -48,7 +47,7 @@ function Main({ totalAmount, offers, cities }: MainPageProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {totalAmount} places to stay in {selectedCity.name}
+                {filteredOffers.length} places to stay in {selectedCity.name}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>

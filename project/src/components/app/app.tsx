@@ -22,7 +22,7 @@ function App({ totalAmount, offers, reviews, cities }: AppScreenProps): JSX.Elem
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main totalAmount={totalAmount} offers={offers} cities = {cities} />}
+              element={<Main offers={offers} cities = {cities} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
