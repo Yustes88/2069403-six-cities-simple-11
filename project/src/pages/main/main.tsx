@@ -4,7 +4,7 @@ import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-// import { filteredOffersByCity } from '../../components/utils/utils';
+import { filteredOffersByCity } from '../../components/utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { switchCity } from '../../store/action';
 import { City, Offers, OfferType } from '../../types/types';
@@ -20,7 +20,7 @@ function Main({ totalAmount, offers, cities }: MainPageProps): JSX.Element {
     undefined
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
-  // const filteredOffers = useAppSelector((state) => filteredOffersByCity(state.offersList));
+  const filteredOffers = useAppSelector((state) => filteredOffersByCity(selectedCity, state.offersList));
 
   const dispatch = useAppDispatch();
 
@@ -77,7 +77,7 @@ function Main({ totalAmount, offers, cities }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
+                <CardsList offers={filteredOffers} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
               </div>
             </section>
             <div className="cities__right-section">
