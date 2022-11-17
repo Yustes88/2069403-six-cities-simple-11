@@ -4,9 +4,9 @@ import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import { filteredOffersByCity } from '../../components/utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { switchCity } from '../../store/action';
+import { switchCity} from '../../store/action';
+import { getFilteredOffers } from '../../store/selectors';
 import { City, Offers, OfferType } from '../../types/types';
 
 type MainPageProps = {
@@ -19,7 +19,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
     undefined
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
-  const filteredOffers = useAppSelector((state) => filteredOffersByCity(selectedCity, state.offersList));
+  const filteredOffers = useAppSelector((state) => getFilteredOffers(selectedCity, state.offersList));
 
   const dispatch = useAppDispatch();
 
@@ -28,6 +28,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
 
     setSelectedOffer(currentPoint);
   };
+
   return (
     <>
       <Helmet>

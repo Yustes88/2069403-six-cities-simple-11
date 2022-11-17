@@ -5,6 +5,6 @@ export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
 }));
 
-export const displayOffers = createAction('city/displayOffers', (offersList: Offers) => ({
+export const setOffers = createAction('city/displayOffers', (offersList: Offers) => ({
   payload: offersList,
 }));

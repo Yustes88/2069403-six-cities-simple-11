@@ -6,15 +6,23 @@ import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import { City, Offers, Reviews } from '../../types/types';
+import { useEffect } from 'react';
+import { setOffers } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
 
 type AppScreenProps = {
-  totalAmount: number;
   offers: Offers;
   reviews: Reviews;
   cities: City[];
 };
 
-function App({ totalAmount, offers, reviews, cities }: AppScreenProps): JSX.Element {
+function App({ offers, reviews, cities }: AppScreenProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch (setOffers(offers));
+  }, [offers, dispatch]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
