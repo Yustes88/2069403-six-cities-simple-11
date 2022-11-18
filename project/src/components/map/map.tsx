@@ -31,10 +31,13 @@ function Map(props: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude],
+        city.location.zoom);
+
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.lat,
-          lng: offer.lng,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker
@@ -46,7 +49,7 @@ function Map(props: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, city, offers, selectedOffer]);
 
   return <div style={{ height: '500px' }} ref={mapRef}></div>;
 }

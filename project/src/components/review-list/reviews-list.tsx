@@ -1,23 +1,26 @@
-import { OfferType } from '../../types/types';
+import { OfferType, Reviews } from '../../types/types';
 import Review from '../review-item/review';
 
 type ReviewProps = {
   offer: OfferType;
+  reviews: Reviews;
 }
 
 
-function ReviewsList({offer}: ReviewProps):JSX.Element {
+function ReviewsList({offer, reviews}: ReviewProps):JSX.Element {
+  const filteredReviewsById = reviews.filter((review) => review.id === offer.id);
   return(
     <ul className="reviews__list">
-      {offer.reviews.map((review) => (
-        <Review
-          avatar={review.avatar}
-          userName={review.userName}
-          rateReview={review.rateReview}
-          reviewText={review.reviewText}
-          key={review.id}
-          date={review.date}
-        />
+      <h2 className="reviews__title">
+          Reviews &middot;{' '}
+        <span className="reviews__amount">
+          {filteredReviewsById.length}
+        </span>
+      </h2>
+      {filteredReviewsById.map((review) => (
+        <li className="reviews__item" key={review.id}>
+          <Review review={review}/>
+        </li>
       ))}
     </ul>
   );

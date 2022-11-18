@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
-import { CITY } from './mocks/city';
-import {offerMock} from './mocks/offerMock';
+import { Cities } from './const';
 
-const Setting = {
-  totalAmount: 405,
-} as const;
+import {offerMock, ReviewsMock} from './mocks/offerMock';
+import { store } from './store';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -14,10 +14,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      totalAmount={Setting.totalAmount}
-      offers = {offerMock}
-      city = {CITY}
-    />
+    <Provider store = {store}>
+      <App
+        offers = {offerMock}
+        reviews = {ReviewsMock}
+        cities = {Cities}
+
+      />
+    </Provider>
   </React.StrictMode>,
 );

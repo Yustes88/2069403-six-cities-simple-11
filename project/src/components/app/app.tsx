@@ -1,19 +1,28 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute} from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
-import { City, Offers } from '../../types/types';
+import { City, Offers, Reviews } from '../../types/types';
+import { useEffect } from 'react';
+import { setOffers } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
 
 type AppScreenProps = {
-  totalAmount: number;
   offers: Offers;
-  city: City;
+  reviews: Reviews;
+  cities: City[];
 };
 
-function App({ totalAmount, offers, city }: AppScreenProps): JSX.Element {
+function App({ offers, reviews, cities }: AppScreenProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch (setOffers(offers));
+  }, [offers, dispatch]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -21,11 +30,11 @@ function App({ totalAmount, offers, city }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main totalAmount={totalAmount} offers={offers} city={city} />}
+              element={<Main offers={offers} cities = {cities} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} city ={city} />} />
+              <Route path={AppRoute.Id} element={<Room offers={offers} reviews = {reviews} cities = {cities} />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

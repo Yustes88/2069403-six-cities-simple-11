@@ -1,26 +1,34 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import CardsList from '../../components/cards-list/cards-list';
+import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { switchCity} from '../../store/action';
+import { getFilteredOffers } from '../../store/selectors';
 import { City, Offers, OfferType } from '../../types/types';
 
 type MainPageProps = {
-  totalAmount: number;
   offers: Offers;
-  city: City;
+  cities: City[];
 };
 
-function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
+function Main({offers, cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
+  const selectedCity = useAppSelector((state) => state.currentCity);
+  const filteredOffers = useAppSelector(getFilteredOffers);
+
+  const dispatch = useAppDispatch();
 
   const onListItemEnter = (id: number) => {
     const currentPoint = offers.find((offer) => Number(offer.id) === id);
 
     setSelectedOffer(currentPoint);
   };
+
   return (
     <>
       <Helmet>
@@ -31,51 +39,16 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#link">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#link">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#link">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a
-                  className="locations__item-link tabs__item tabs__item--active"
-                  href="#link"
-                >
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#link">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#link">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
+        <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={(cityTitle) => {
+          dispatch(switchCity(cityTitle));
+        }}
+        />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {totalAmount} places to stay in Amsterdam
+                {filteredOffers.length} places to stay in {selectedCity.name}
               </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -104,12 +77,12 @@ function Main({ totalAmount, offers, city }: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} type = {'cities'}/>
+                <CardsList offers={filteredOffers} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} offers={offers} selectedOffer={selectedOffer} />
+                <Map city={selectedCity} offers={offers} selectedOffer={selectedOffer} />
               </section>
             </div>
           </div>
