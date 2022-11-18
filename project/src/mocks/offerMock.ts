@@ -1,4 +1,3 @@
-// import { getRandomInteger } from '../components/utils/utils';
 import { Offers, Reviews } from '../types/types';
 
 export const getRandomInteger = (a = 0, b = 1) => {

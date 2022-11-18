@@ -19,7 +19,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
     undefined
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
-  const filteredOffers = useAppSelector((state) => getFilteredOffers(selectedCity, state.offersList));
+  const filteredOffers = useAppSelector(getFilteredOffers);
 
   const dispatch = useAppDispatch();
 
