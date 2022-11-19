@@ -8,3 +8,8 @@ export const switchCity = createAction('city/switchCity', (city: City) => ({
 export const setOffers = createAction('city/displayOffers', (offersList: Offers) => ({
   payload: offersList,
 }));
+
+
+export const getSortName = createAction('offers/displaySortedOffers', (sortedOffersList: string) => ({
+  payload: sortedOffersList,
+}));

@@ -1,11 +1,11 @@
-import { ReviewType } from '../../types/types';
-import { formatDate } from '../utils/utils';
+import { ReviewType } from "../../types/types";
+import { formatDate } from "../../utils/utils";
 
 type ReviewProps = {
   review: ReviewType;
 };
 
-function Review({review}: ReviewProps): JSX.Element {
+function Review({ review }: ReviewProps): JSX.Element {
   return (
     <>
       <div className="reviews__user user">
@@ -23,10 +23,7 @@ function Review({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${
-              review.rating * 20}%` }}
-            >
-            </span>
+            <span style={{ width: `${review.rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

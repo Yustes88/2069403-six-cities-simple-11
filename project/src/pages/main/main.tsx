@@ -18,6 +18,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
+  const sortingName = useAppSelector((state) => state.currentSorting);
   const selectedCity = useAppSelector((state) => state.currentCity);
   const filteredOffers = useAppSelector(getFilteredOffers);
 
@@ -27,6 +28,19 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
     const currentPoint = offers.find((offer) => Number(offer.id) === id);
 
     setSelectedOffer(currentPoint);
+  };
+
+  const sortedOffers = (sortTitle: string) => {
+    switch (sortTitle) {
+      case 'Price: low to high':
+        return filteredOffers.sort((a, b) => a.price - b.price);
+      case 'Price: high to low':
+        return filteredOffers.sort((a, b) => b.price - a.price);
+      case 'Top rated first':
+        return filteredOffers.sort((a, b) => b.rating - a.rating);
+      default:
+        return filteredOffers;
+    }
   };
 
   return (
