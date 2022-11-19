@@ -9,10 +9,10 @@ export enum AppRoute {
 }
 
 export const URL_MARKER_DEFAULT =
-  'img/markers/marker-default.svg';
+  'img/pin.svg';
 
 export const URL_MARKER_CURRENT =
-  'img/markers/marker-current.svg';
+  'img/pin-active.svg';
 
 export const Cities: City[] = [{
   location: {
