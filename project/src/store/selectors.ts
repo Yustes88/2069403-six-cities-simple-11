@@ -1,5 +1,5 @@
-import { filteredOffersByCity } from "../utils/utils";
-import { City, Offers } from "../types/types";
+import { filteredOffersByCity } from '../utils/utils';
+import { City, Offers } from '../types/types';
 
 export const getFilteredOffers = (state: {
   currentCity: City;
