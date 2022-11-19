@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getSortName } from '../../store/action';
+import { setSortName } from '../../store/action';
 import { sortValues } from '../../utils/utils';
 
 
 type SortingListProps = {
   sortingName: string;
-  onSortingChange: (sortingTitle: string) => void;
 };
 
-function SortingOptions({sortingName, onSortingChange}: SortingListProps):JSX.Element {
+function SortingOptions({sortingName}: SortingListProps):JSX.Element {
   const [isSortOpen, setIsSortOpen] = useState(false);
 
   function handleSortListOpen() {
@@ -17,9 +16,12 @@ function SortingOptions({sortingName, onSortingChange}: SortingListProps):JSX.El
   }
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getSortName(sortingName));
-  }, [dispatch, sortingName]);
+
+  function handleOnSortingClick(evt: React.MouseEvent<HTMLLIElement>) {
+      (evt.target as HTMLLIElement).textContent as string;
+      dispatch(setSortName((evt.target as HTMLLIElement).textContent as string));
+      setIsSortOpen(false);
+  }
 
   return(
     <form className="places__sorting" action="#" method="get">
@@ -32,12 +34,8 @@ function SortingOptions({sortingName, onSortingChange}: SortingListProps):JSX.El
       </span>
       <ul className={`places__options places__options--custom ${isSortOpen ? 'places__options--opened' : ''}`}>
         {sortValues.map((sortItem) => (
-          <li className="places__option" tabIndex={0} key={sortItem} onClick={(evt) => {
-            evt.preventDefault();
-            onSortingChange((evt.target as HTMLLIElement).textContent as string);
-            setIsSortOpen(!isSortOpen);
-          }}
-          >{sortItem}
+          <li className="places__option" tabIndex={0} key={sortItem} onClick={handleOnSortingClick}>
+            {sortItem}
           </li>
         ))}
       </ul>

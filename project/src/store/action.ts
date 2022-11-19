@@ -10,6 +10,6 @@ export const setOffers = createAction('city/displayOffers', (offersList: Offers)
 }));
 
 
-export const getSortName = createAction('offers/displaySortedOffers', (sortedOffersList: string) => ({
-  payload: sortedOffersList,
+export const setSortName = createAction('offers/displaySortedOffers', (sortType: string) => ({
+  payload: sortType,
 }));
