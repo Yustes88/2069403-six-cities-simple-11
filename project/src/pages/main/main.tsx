@@ -6,7 +6,7 @@ import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { switchCity} from '../../store/action';
+import { getSortName, switchCity} from '../../store/action';
 import { getFilteredOffers } from '../../store/selectors';
 import { City, Offers, OfferType } from '../../types/types';
 
@@ -65,7 +65,10 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
               <b className="places__found">
                 {filteredOffers.length} places to stay in {selectedCity.name}
               </b>
-              <SortingOptions/>
+              <SortingOptions sortingName = {sortingName} onSortingChange = {(sortingTitle) => {
+                dispatch(getSortName(sortingTitle));
+              }}
+              />
               <div className="cities__places-list places__list tabs__content">
                 <CardsList offers={sortedOffers(sortingName)} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
               </div>
