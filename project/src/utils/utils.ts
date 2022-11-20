@@ -1,7 +1,8 @@
-import { City, Offers } from '../../types/types';
+import { Sorting } from '../const';
+import { City, Offers } from '../types/types';
 
-export const filteredOffersByCity = (currentCity: City, offers: Offers) => offers.filter((offer) => offer.city.name === currentCity.name);
-
+export const filteredOffersByCity = (currentCity: City, offers: Offers) =>
+  offers.filter((offer) => offer.city.name === currentCity.name);
 
 export const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -15,3 +16,5 @@ export const formatDate = (isoDate: string) => {
 
   return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
 };
+
+export const sortValues = Object.values(Sorting);

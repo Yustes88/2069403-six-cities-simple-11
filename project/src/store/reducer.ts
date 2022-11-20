@@ -1,18 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
 import { City, Offers } from '../types/types';
-import { setOffers, switchCity } from './action';
+import { setSortName, setOffers, switchCity } from './action';
 
 type ReducerTypes = {
   currentCity: City;
   offersList: Offers;
+  currentSorting: string;
 };
 
 const initialState: ReducerTypes = {
   currentCity: Cities[0],
   offersList: [],
+  currentSorting: sortValues[0],
 };
-
 
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -21,7 +23,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offersList = action.payload;
+    })
+    .addCase(setSortName, (state, action) => {
+      state.currentSorting = action.payload;
     });
 });
 
-export {reducer};
+export { reducer };
