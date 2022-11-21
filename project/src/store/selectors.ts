@@ -13,7 +13,7 @@ export const getSortedOffers = (state: {
   currentCity: City;
 },
 ) => {
-  const filteredOffers = filteredOffersByCity(state.currentCity, state.offersList);
+  const filteredOffers = getFilteredOffers(state);
   switch (state.currentSorting) {
     case 'Price: low to high':
       return filteredOffers.sort((a, b) => a.price - b.price);

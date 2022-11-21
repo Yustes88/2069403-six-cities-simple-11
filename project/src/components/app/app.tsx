@@ -5,19 +5,20 @@ import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
-import { City, Offers, Reviews } from '../../types/types';
+import { City, Reviews } from '../../types/types';
 import { useEffect } from 'react';
 import { setOffers } from '../../store/action';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
-  offers: Offers;
   reviews: Reviews;
   cities: City[];
 };
 
-function App({ offers, reviews, cities }: AppScreenProps): JSX.Element {
+function App({ reviews, cities }: AppScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
+
+  const offers = useAppSelector((state) => state.offers);
 
   useEffect(() => {
     dispatch (setOffers(offers));

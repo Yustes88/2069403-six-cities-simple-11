@@ -25,7 +25,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
   const sortedOffers = useAppSelector(getSortedOffers);
 
   const onListItemEnter = (id: number) => {
-    const currentPoint = offers.find((offer) => Number(offer.id) === id);
+    const currentPoint = offers.find((offer) => offer.id === id);
 
     setSelectedOffer(currentPoint);
   };

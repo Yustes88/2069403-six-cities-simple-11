@@ -13,3 +13,7 @@ export const setOffers = createAction('city/displayOffers', (offersList: Offers)
 export const setSortName = createAction('offers/displaySortedOffers', (sortType: string) => ({
   payload: sortType,
 }));
+
+export const loadOffers = createAction('data/loadOffers', (offersList: Offers) => ({
+  payload: offersList,
+}));
