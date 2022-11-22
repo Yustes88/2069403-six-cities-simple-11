@@ -21,3 +21,7 @@ export const loadOffers = createAction('data/loadOffers', (offersList: Offers) =
 export const loadComments = createAction('data/loadComments', (commentsList: Reviews) => ({
   payload: commentsList,
 }));
+
+export const setLoadingStatus = createAction('data/setLoadingStatus', (isLoading: boolean) => ({
+  payload: isLoading,
+}));

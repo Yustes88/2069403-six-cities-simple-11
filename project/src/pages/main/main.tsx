@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import Map from '../../components/map/map';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -23,6 +24,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
   const selectedCity = useAppSelector((state) => state.currentCity);
   const filteredOffers = useAppSelector(getFilteredOffers);
   const sortedOffers = useAppSelector(getSortedOffers);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   const onListItemEnter = (id: number) => {
     const currentPoint = offers.find((offer) => offer.id === id);
@@ -32,7 +34,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  return (
+  return (isLoading) ? <LoadingSpinner/> :
     <>
       <Helmet>
         <title>6 cities</title>
@@ -66,8 +68,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
           </div>
         </div>
       </main>
-    </>
-  );
+    </>;
 }
 
 export default Main;
