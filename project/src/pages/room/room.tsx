@@ -10,7 +10,7 @@ import ReviewsList from '../../components/review-list/reviews-list';
 import { Offers, OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
 type RoomProps = {
@@ -19,16 +19,20 @@ type RoomProps = {
 
 function Room({ offers }: RoomProps): JSX.Element {
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === Number(id));
+
+  const offer = useAppSelector((state) => state.offer);
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
+
   const selectedCity = useAppSelector((state) => state.currentCity);
   const reviews = useAppSelector((state) => state.commentsList);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
 
+  const fullOffers = [...nearbyOffers, offer];
+
   const onListItemEnter = (itemId: number) => {
-    const currentPoint = nearbyOffers.find((offerItem) => Number(offerItem.id) === itemId);
+    const currentPoint = nearbyOffers.find((offerItem) => offerItem.id === itemId);
 
     setSelectedOffer(currentPoint);
   };
@@ -40,6 +44,7 @@ function Room({ offers }: RoomProps): JSX.Element {
   useEffect(() => {
     store.dispatch(fetchReviewsAction(Number(id)));
     store.dispatch(fetchNearbyOffersAction(Number(id)));
+    store.dispatch(fetchOfferAction(Number(id)));
   }, [id]);
 
 
@@ -136,7 +141,7 @@ function Room({ offers }: RoomProps): JSX.Element {
             <section className="property__map map">
               <Map
                 city={selectedCity}
-                offers={nearbyOffers}
+                offers={fullOffers}
                 selectedOffer={selectedOffer}
               />
             </section>
