@@ -25,3 +25,8 @@ export const loadComments = createAction('data/loadComments', (commentsList: Rev
 export const setLoadingStatus = createAction('data/setLoadingStatus', (isLoading: boolean) => ({
   payload: isLoading,
 }));
+
+
+export const loadNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: Offers) => ({
+  payload: nearbyOffersList,
+}));

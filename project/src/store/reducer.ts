@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
 import { City, Offers, Reviews } from '../types/types';
-import { setSortName, setOffers, switchCity, loadOffers, loadComments, setLoadingStatus } from './action';
+import { setSortName, setOffers, switchCity, loadOffers, loadComments, setLoadingStatus, loadNearbyOffers } from './action';
 
 type ReducerTypes = {
   currentCity: City;
@@ -11,6 +11,7 @@ type ReducerTypes = {
   offers: Offers;
   commentsList: Reviews;
   isLoading: boolean;
+  nearbyOffersList: Offers;
 };
 
 const initialState: ReducerTypes = {
@@ -20,6 +21,7 @@ const initialState: ReducerTypes = {
   offers: [],
   commentsList: [],
   isLoading: true,
+  nearbyOffersList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadingStatus, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffersList = action.payload;
     });
 });
 

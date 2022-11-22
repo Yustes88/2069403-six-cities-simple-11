@@ -7,28 +7,28 @@ import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { City, Offers, OfferType } from '../../types/types';
-import NotFound from '../404/not-found';
+import { Offers, OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchReviewsAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/api-actions';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
 type RoomProps = {
   offers: Offers;
-  cities: City[];
 };
 
-function Room({ offers, cities }: RoomProps): JSX.Element {
+function Room({ offers }: RoomProps): JSX.Element {
   const { id } = useParams();
   const offer = offers.find((item) => item.id === Number(id));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
-
+  const reviews = useAppSelector((state) => state.commentsList);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
 
   const onListItemEnter = (itemId: number) => {
-    const currentPoint = offers.find((offerItem) => Number(offerItem.id) === itemId);
+    const currentPoint = nearbyOffers.find((offerItem) => Number(offerItem.id) === itemId);
 
     setSelectedOffer(currentPoint);
   };
@@ -39,9 +39,9 @@ function Room({ offers, cities }: RoomProps): JSX.Element {
 
   useEffect(() => {
     store.dispatch(fetchReviewsAction(Number(id)));
+    store.dispatch(fetchNearbyOffersAction(Number(id)));
   }, [id]);
 
-  const reviews = useAppSelector((state) => state.commentsList);
 
   if (offer) {
     return (
@@ -136,7 +136,7 @@ function Room({ offers, cities }: RoomProps): JSX.Element {
             <section className="property__map map">
               <Map
                 city={selectedCity}
-                offers={offers}
+                offers={nearbyOffers}
                 selectedOffer={selectedOffer}
               />
             </section>
@@ -147,7 +147,7 @@ function Room({ offers, cities }: RoomProps): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list" onClick = {scrollToTop}>
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
+                <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
           </div>
@@ -158,7 +158,7 @@ function Room({ offers, cities }: RoomProps): JSX.Element {
     return (
       <main className="page__main page__main--property">
         <section className="property">
-          <NotFound />
+          <LoadingSpinner />
         </section>
       </main>
     );

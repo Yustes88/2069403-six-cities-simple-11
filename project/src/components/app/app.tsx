@@ -34,7 +34,7 @@ function App({ cities }: AppScreenProps): JSX.Element {
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} cities = {cities} />} />
+              <Route path={AppRoute.Id} element={<Room offers={offers} />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

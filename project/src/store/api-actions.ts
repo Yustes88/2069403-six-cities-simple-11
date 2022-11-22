@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { Offers, Reviews } from '../types/types.js';
 import { AppDispatch, State } from '../types/storeTypes';
-import { loadComments, loadOffers, setLoadingStatus } from './action';
+import { loadComments, loadNearbyOffers, loadOffers, setLoadingStatus } from './action';
 import { APIRoute } from '../const';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -28,4 +28,17 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
     const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
     dispatch(loadComments(data));
   }
+);
+
+export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchNearbyOffers',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+    dispatch(loadNearbyOffers(data));
+    dispatch(setLoadingStatus(false));
+  },
 );
