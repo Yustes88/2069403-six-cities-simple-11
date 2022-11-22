@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import { City, Offers, OfferType, Reviews } from '../types/types';
+import { City, Offers, Reviews } from '../types/types';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
@@ -31,7 +31,3 @@ export const loadNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyO
   payload: nearbyOffersList,
 }));
 
-
-export const loadOffer = createAction('offer/loadOffer', (offer: OfferType) => ({
-  payload: offer,
-}));
