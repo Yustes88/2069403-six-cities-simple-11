@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { Cities } from './const';
-
-import { ReviewsMock} from './mocks/offerMock';
 import { store } from './store';
 import { fetchOffersAction } from './store/api-actions';
 
@@ -15,11 +13,11 @@ const root = ReactDOM.createRoot(
 
 store.dispatch(fetchOffersAction());
 
+
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <App
-        reviews = {ReviewsMock}
         cities = {Cities}
 
       />

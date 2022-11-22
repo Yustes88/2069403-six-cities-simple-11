@@ -69,4 +69,5 @@ export const Sorting = {
 
 export enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments'
 }

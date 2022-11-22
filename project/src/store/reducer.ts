@@ -1,14 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
-import { City, Offers } from '../types/types';
-import { setSortName, setOffers, switchCity, loadOffers } from './action';
+import { City, Offers, Reviews } from '../types/types';
+import { setSortName, setOffers, switchCity, loadOffers, loadComments } from './action';
 
 type ReducerTypes = {
   currentCity: City;
   offersList: Offers;
   currentSorting: string;
   offers: Offers;
+  commentsList: Reviews;
 };
 
 const initialState: ReducerTypes = {
@@ -16,6 +17,7 @@ const initialState: ReducerTypes = {
   offersList: [],
   currentSorting: sortValues[0],
   offers: [],
+  commentsList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -28,8 +30,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSortName, (state, action) => {
       state.currentSorting = action.payload;
-    }).addCase(loadOffers, (state, action) => {
+    })
+    .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.commentsList = action.payload;
     });
 });
 

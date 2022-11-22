@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import { City, Offers } from '../types/types';
+import { City, Offers, Reviews } from '../types/types';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
@@ -16,4 +16,8 @@ export const setSortName = createAction('offers/displaySortedOffers', (sortType:
 
 export const loadOffers = createAction('data/loadOffers', (offersList: Offers) => ({
   payload: offersList,
+}));
+
+export const loadComments = createAction('data/loadComments', (commentsList: Reviews) => ({
+  payload: commentsList,
 }));

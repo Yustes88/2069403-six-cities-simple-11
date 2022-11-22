@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
@@ -7,23 +7,25 @@ import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { City, Offers, OfferType, Reviews } from '../../types/types';
+import { City, Offers, OfferType } from '../../types/types';
 import NotFound from '../404/not-found';
 import { useAppSelector } from '../../hooks';
+import { store } from '../../store';
+import { fetchReviewsAction } from '../../store/api-actions';
 
 type RoomProps = {
   offers: Offers;
-  reviews: Reviews;
   cities: City[];
 };
 
-function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
+function Room({ offers, cities }: RoomProps): JSX.Element {
   const { id } = useParams();
   const offer = offers.find((item) => item.id === Number(id));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
   const selectedCity = useAppSelector((state) => state.currentCity);
+
 
   const onListItemEnter = (itemId: number) => {
     const currentPoint = offers.find((offerItem) => Number(offerItem.id) === itemId);
@@ -35,6 +37,11 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
     window.scroll(0, 0);
   };
 
+  useEffect(() => {
+    store.dispatch(fetchReviewsAction(Number(id)));
+  }, [id]);
+
+  const reviews = useAppSelector((state) => state.commentsList);
 
   if (offer) {
     return (
@@ -121,7 +128,7 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList reviews={reviews} offer={offer}/>
+                  <ReviewsList reviews={reviews}/>
                   <CommentForm />
                 </section>
               </div>
