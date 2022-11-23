@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
 import { City, Offers, Reviews } from '../types/types';
-import { setSortName, setOffers, switchCity, loadOffers, loadComments, setLoadingStatus, loadNearbyOffers } from './action';
+import { setSortName, setOffersList, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments } from './action';
 
 type ReducerTypes = {
   currentCity: City;
@@ -20,7 +20,7 @@ const initialState: ReducerTypes = {
   currentSorting: sortValues[0],
   offers: [] as Offers,
   commentsList: [],
-  isLoading: true,
+  isLoading: false,
   nearbyOffersList: [],
 };
 
@@ -29,22 +29,22 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(switchCity, (state, action) => {
       state.currentCity = action.payload;
     })
-    .addCase(setOffers, (state, action) => {
+    .addCase(setOffersList, (state, action) => {
       state.offersList = action.payload;
     })
     .addCase(setSortName, (state, action) => {
       state.currentSorting = action.payload;
     })
-    .addCase(loadOffers, (state, action) => {
+    .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(loadComments, (state, action) => {
+    .addCase(setComments, (state, action) => {
       state.commentsList = action.payload;
     })
     .addCase(setLoadingStatus, (state, action) => {
       state.isLoading = action.payload;
     })
-    .addCase(loadNearbyOffers, (state, action) => {
+    .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffersList = action.payload;
     });
 });

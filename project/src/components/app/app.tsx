@@ -7,7 +7,7 @@ import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import { City } from '../../types/types';
 import { useEffect } from 'react';
-import { setOffers } from '../../store/action';
+import { setOffersList } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
@@ -20,7 +20,7 @@ function App({ cities }: AppScreenProps): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
 
   useEffect(() => {
-    dispatch (setOffers(offers));
+    dispatch (setOffersList(offers));
   }, [offers, dispatch]);
 
   return (

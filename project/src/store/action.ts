@@ -5,7 +5,7 @@ export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
 }));
 
-export const setOffers = createAction('city/displayOffers', (offersList: Offers) => ({
+export const setOffersList = createAction('city/displayOffers', (offersList: Offers) => ({
   payload: offersList,
 }));
 
@@ -14,11 +14,11 @@ export const setSortName = createAction('offers/displaySortedOffers', (sortType:
   payload: sortType,
 }));
 
-export const loadOffers = createAction('data/loadOffers', (offersList: Offers) => ({
+export const setOffers = createAction('data/loadOffers', (offersList: Offers) => ({
   payload: offersList,
 }));
 
-export const loadComments = createAction('data/loadComments', (commentsList: Reviews) => ({
+export const setComments = createAction('data/loadComments', (commentsList: Reviews) => ({
   payload: commentsList,
 }));
 
@@ -27,7 +27,7 @@ export const setLoadingStatus = createAction('data/setLoadingStatus', (isLoading
 }));
 
 
-export const loadNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: Offers) => ({
+export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: Offers) => ({
   payload: nearbyOffersList,
 }));
 
