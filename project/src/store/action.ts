@@ -1,12 +1,8 @@
 import {createAction} from '@reduxjs/toolkit';
-import { City, Offers, Reviews } from '../types/types';
+import { City, Offers, OfferType, Reviews } from '../types/types';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
-}));
-
-export const setOffersList = createAction('city/displayOffers', (offersList: Offers) => ({
-  payload: offersList,
 }));
 
 
@@ -14,11 +10,15 @@ export const setSortName = createAction('offers/displaySortedOffers', (sortType:
   payload: sortType,
 }));
 
-export const setOffers = createAction('data/loadOffers', (offersList: Offers) => ({
+export const setOffers = createAction('data/setOffers', (offersList: { [offerId: number]: OfferType}) => ({
   payload: offersList,
 }));
 
-export const setComments = createAction('data/loadComments', (commentsList: Reviews) => ({
+export const setOffer = createAction('data/setOffer', (offer: OfferType) => ({
+  payload: offer,
+}));
+
+export const setComments = createAction('data/setComments', (commentsList: Reviews) => ({
   payload: commentsList,
 }));
 

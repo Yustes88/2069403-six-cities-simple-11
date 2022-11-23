@@ -3,11 +3,11 @@ import { Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import { City, Offers, OfferType } from '../../types/types';
+import { City, OfferType } from '../../types/types';
 
 type MapProps = {
   city: City;
-  offers: Offers;
+  offers: { [offerId: number]: OfferType};
   selectedOffer: OfferType | undefined;
 };
 
@@ -34,7 +34,7 @@ function Map(props: MapProps): JSX.Element {
       map.setView([city.location.latitude, city.location.longitude],
         city.location.zoom);
 
-      offers.forEach((offer) => {
+      Object.values(offers).forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,

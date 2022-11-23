@@ -1,9 +1,20 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { Offers, Reviews } from '../types/types.js';
+import { Offers, OfferType, Reviews } from '../types/types.js';
 import { AppDispatch, State } from '../types/storeTypes';
-import { setOffers, setComments, setLoadingStatus, setNearbyOffers } from './action';
+import { setOffers, setComments, setLoadingStatus, setNearbyOffers, setOffer } from './action';
 import { APIRoute } from '../const';
+
+
+function processOffers(offers: Offers): State['offers'] { // [{offer, }] => {[id: number]: Offer}
+  const result: State['offers'] = {};
+
+  offers.forEach((offer) =>{
+    result[offer.id] = offer;
+  });
+
+  return result;
+}
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -14,10 +25,26 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
-    dispatch(setOffers(data));
+    const normalizedOffers = processOffers(data);
+    dispatch(setOffers(normalizedOffers));
     dispatch(setLoadingStatus(false));
   },
 );
+
+export const fetchOfferAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoadingStatus(true));
+    const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
+    dispatch(setOffer(data));
+    dispatch(setLoadingStatus(false));
+  },
+);
+
 
 export const fetchReviewsAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch;

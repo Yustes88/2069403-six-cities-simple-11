@@ -1,14 +1,14 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
-import { City, Offers, Reviews } from '../types/types';
-import { setSortName, setOffersList, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments } from './action';
+import { City, Offers, OfferType, Reviews } from '../types/types';
+import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments, setOffer } from './action';
 
 type ReducerTypes = {
   currentCity: City;
-  offersList: Offers;
   currentSorting: string;
-  offers: Offers;
+  offers: { [offerId: number]: OfferType};
+  offer: OfferType;
   commentsList: Reviews;
   isLoading: boolean;
   nearbyOffersList: Offers;
@@ -16,9 +16,9 @@ type ReducerTypes = {
 
 const initialState: ReducerTypes = {
   currentCity: Cities[0],
-  offersList: [],
   currentSorting: sortValues[0],
   offers: [] as Offers,
+  offer: {} as OfferType,
   commentsList: [],
   isLoading: false,
   nearbyOffersList: [],
@@ -29,14 +29,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(switchCity, (state, action) => {
       state.currentCity = action.payload;
     })
-    .addCase(setOffersList, (state, action) => {
-      state.offersList = action.payload;
-    })
     .addCase(setSortName, (state, action) => {
       state.currentSorting = action.payload;
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setOffer, (state, action) => {
+      state.offer = action.payload;
     })
     .addCase(setComments, (state, action) => {
       state.commentsList = action.payload;
