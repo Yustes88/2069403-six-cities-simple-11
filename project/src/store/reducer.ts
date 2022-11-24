@@ -16,7 +16,7 @@ type ReducerTypes = {
 const initialState: ReducerTypes = {
   currentCity: Cities[0],
   currentSorting: sortValues[0],
-  offers: [],
+  offers: {},
   commentsList: [],
   isLoading: false,
   nearbyOffersList: [],

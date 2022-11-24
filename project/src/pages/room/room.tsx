@@ -49,9 +49,9 @@ function Room(): JSX.Element {
 
   useEffect(() => {
     if(!offer) {
-      store.dispatch(fetchOfferAction(Number(id)));
+      store.dispatch(fetchOfferAction(offer));
     }
-  }, [id, offer]);
+  }, [offer]);
 
 
   if (offer) {

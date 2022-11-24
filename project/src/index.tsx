@@ -4,15 +4,11 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { Cities } from './const';
 import { store } from './store';
-import { fetchOffersAction } from './store/api-actions';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-
-store.dispatch(fetchOffersAction());
-
 
 root.render(
   <React.StrictMode>

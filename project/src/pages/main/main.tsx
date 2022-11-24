@@ -9,6 +9,7 @@ import SortingOptions from '../../components/sorting-options/sorting-options';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { setOffers, switchCity} from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
 import { getSortedOffers } from '../../store/selectors';
 import { City, OfferType } from '../../types/types';
 
@@ -37,6 +38,10 @@ function Main({ cities }: MainPageProps): JSX.Element {
   useEffect(() => {
     store.dispatch(setOffers(offers));
   }, [offers]);
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
 
   return (isLoading) ? <LoadingSpinner/> :
     <>
