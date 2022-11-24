@@ -14,9 +14,6 @@ export const setOffers = createAction('data/setOffers', (offersList: { [offerId:
   payload: offersList,
 }));
 
-export const setOffer = createAction('data/setOffer', (offer: OfferType) => ({
-  payload: offer,
-}));
 
 export const setComments = createAction('data/setComments', (commentsList: Reviews) => ({
   payload: commentsList,

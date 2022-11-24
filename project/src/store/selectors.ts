@@ -29,3 +29,8 @@ export const getSortedOffers = createSelector(
     }
   }
 );
+
+
+export const getOfferById = (offerId:number) => (store:{
+  offers: { [offerId: number]: OfferType};
+}) => Object.values(store.offers).filter(({ id }) => id === offerId)[0];

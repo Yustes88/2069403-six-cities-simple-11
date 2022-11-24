@@ -2,11 +2,11 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { Offers, OfferType, Reviews } from '../types/types.js';
 import { AppDispatch, State } from '../types/storeTypes';
-import { setOffers, setComments, setLoadingStatus, setNearbyOffers, setOffer } from './action';
+import { setOffers, setComments, setLoadingStatus, setNearbyOffers } from './action';
 import { APIRoute } from '../const';
 
 
-function processOffers(offers: Offers): State['offers'] { // [{offer, }] => {[id: number]: Offer}
+function processOffers(offers: Offers): State['offers'] {
   const result: State['offers'] = {};
 
   offers.forEach((offer) =>{
@@ -40,7 +40,7 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
   async (id, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
     const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
-    dispatch(setOffer(data));
+    dispatch(setOffers(data));
     dispatch(setLoadingStatus(false));
   },
 );

@@ -7,6 +7,7 @@ import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import Map from '../../components/map/map';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { store } from '../../store';
 import { setOffers, switchCity} from '../../store/action';
 import { getSortedOffers } from '../../store/selectors';
 import { City, OfferType } from '../../types/types';
@@ -34,8 +35,8 @@ function Main({ cities }: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setOffers(offers));
-  }, [offers, dispatch]);
+    store.dispatch(setOffers(offers));
+  }, [offers]);
 
   return (isLoading) ? <LoadingSpinner/> :
     <>

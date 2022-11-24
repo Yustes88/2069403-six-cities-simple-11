@@ -7,19 +7,19 @@ import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { Offers, OfferType } from '../../types/types';
+import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import NotFound from '../404/not-found';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import { getOfferById } from '../../store/selectors';
 
 
 function Room(): JSX.Element {
   const { id } = useParams();
 
-  const offers = useAppSelector((state) => state.offers);
-  const offer = Object.values(offers).find((item) => item.id === Number(id));
+  const offer = useAppSelector(getOfferById(Number(id)));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
@@ -30,7 +30,7 @@ function Room(): JSX.Element {
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.isLoading);
 
-  const fullOffers = [...nearbyOffers, offer] as Offers;
+  const fullOffers = [...nearbyOffers, offer];
 
   const onListItemEnter = (itemId: number) => {
     const currentPoint = nearbyOffers.find((offerItem) => offerItem.id === itemId);
