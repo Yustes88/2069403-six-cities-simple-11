@@ -13,6 +13,7 @@ import { store } from '../../store';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import NotFound from '../404/not-found';
 import { getOfferById } from '../../store/selectors';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
 
 function Room(): JSX.Element {
@@ -27,8 +28,10 @@ function Room(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.currentCity);
   const reviews = useAppSelector((state) => state.commentsList);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
-  const fullOffers = {...nearbyOffers, offer};
+
+  const fullOffers = [...nearbyOffers, offer];
 
   const onListItemEnter = (itemId: number) => {
     const currentPoint = Object.values(nearbyOffers).find((offerItem) => offerItem.id === itemId);
@@ -51,12 +54,12 @@ function Room(): JSX.Element {
     }
   }, [offer, id]);
 
-
-  if(offer) {
+  if (isLoading) {
+    return <LoadingSpinner />;
+  } else if(offer) {
     return (
       <>
         <Header />
-
         <main className="page__main page__main--property" key={offer.id}>
           <section className="property">
             <div className="property__gallery-container container">
@@ -156,7 +159,7 @@ function Room(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list" onClick = {scrollToTop}>
-                <CardsList offers={Object.values(nearbyOffers)} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
+                <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
           </div>

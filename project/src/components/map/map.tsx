@@ -7,7 +7,7 @@ import { City, OfferType } from '../../types/types';
 
 type MapProps = {
   city: City;
-  offers: { [offerId: number]: OfferType};
+  offers: (OfferType | undefined)[];
   selectedOffer: OfferType | undefined;
 };
 
@@ -34,19 +34,20 @@ function Map(props: MapProps): JSX.Element {
       map.setView([city.location.latitude, city.location.longitude],
         city.location.zoom);
 
-      Object.values(offers).forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
-
-        marker
-          .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer.id
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(map);
+      offers.forEach((offer: OfferType | undefined) => {
+        if(offer) {
+          const marker = new Marker({
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          });
+          marker
+            .setIcon(
+              selectedOffer !== undefined && offer.id === selectedOffer.id
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(map);
+        }
       });
     }
   }, [map, city, offers, selectedOffer]);

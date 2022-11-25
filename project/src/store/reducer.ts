@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { Cities } from '../const';
-import { City, OfferType, Reviews } from '../types/types';
+import { City, Offers, OfferType, Reviews } from '../types/types';
 import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments } from './action';
 
 type ReducerTypes = {
@@ -10,7 +10,7 @@ type ReducerTypes = {
   offers: { [offerId: number]: OfferType};
   commentsList: Reviews;
   isLoading: boolean;
-  nearbyOffersList: { [offerId: number]: OfferType};
+  nearbyOffersList: Offers;
 };
 
 const initialState: ReducerTypes = {
@@ -19,7 +19,7 @@ const initialState: ReducerTypes = {
   offers: {},
   commentsList: [],
   isLoading: true,
-  nearbyOffersList: {},
+  nearbyOffersList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {

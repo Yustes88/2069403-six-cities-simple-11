@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import { City, OfferType, Reviews } from '../types/types';
+import { City, Offers, OfferType, Reviews } from '../types/types';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
@@ -24,7 +24,7 @@ export const setLoadingStatus = createAction('data/setLoadingStatus', (isLoading
 }));
 
 
-export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: { [offerId: number]: OfferType}) => ({
+export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: Offers) => ({
   payload: nearbyOffersList,
 }));
 
