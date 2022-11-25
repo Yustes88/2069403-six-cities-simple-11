@@ -30,10 +30,10 @@ function Room(): JSX.Element {
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.isLoading);
 
-  const fullOffers = [...nearbyOffers, offer];
+  const fullOffers = {...nearbyOffers, offer};
 
   const onListItemEnter = (itemId: number) => {
-    const currentPoint = nearbyOffers.find((offerItem) => offerItem.id === itemId);
+    const currentPoint = Object.values(nearbyOffers).find((offerItem) => offerItem.id === itemId);
 
     setSelectedOffer(currentPoint);
   };
@@ -49,12 +49,20 @@ function Room(): JSX.Element {
 
   useEffect(() => {
     if(!offer) {
-      store.dispatch(fetchOfferAction(offer));
+      store.dispatch(fetchOfferAction(Number(id)));
     }
-  }, [offer]);
+  }, [offer, id]);
 
 
-  if (offer) {
+  if(isLoading === true) {
+    return (
+      <main className="page__main page__main--property">
+        <section className="property">
+          <LoadingSpinner/>
+        </section>
+      </main>
+    );
+  } else if(offer) {
     return (
       <>
         <Header />
@@ -158,22 +166,14 @@ function Room(): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list" onClick = {scrollToTop}>
-                <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
+                <CardsList offers={Object.values(nearbyOffers)} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
           </div>
         </main>
       </>
     );
-  } else if(isLoading === true) {
-    return (
-      <main className="page__main page__main--property">
-        <section className="property">
-          <LoadingSpinner/>
-        </section>
-      </main>
-    );
-  }else {
+  } else {
     return (
       <main className="page__main page__main--property">
         <section className="property">

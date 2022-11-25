@@ -23,7 +23,6 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
     const normalizedOffers = processOffers(data);
     dispatch(setOffers(normalizedOffers));
@@ -66,9 +65,9 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchNearbyOffers',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
     const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
-    dispatch(setNearbyOffers(data));
+    const normalizedOffers = processOffers(data);
+    dispatch(setNearbyOffers(normalizedOffers));
     dispatch(setLoadingStatus(false));
   },
 );
