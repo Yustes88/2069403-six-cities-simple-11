@@ -12,7 +12,6 @@ import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import NotFound from '../404/not-found';
-import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { getOfferById } from '../../store/selectors';
 
 
@@ -28,7 +27,6 @@ function Room(): JSX.Element {
   const selectedCity = useAppSelector((state) => state.currentCity);
   const reviews = useAppSelector((state) => state.commentsList);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
-  const isLoading = useAppSelector((state) => state.isLoading);
 
   const fullOffers = {...nearbyOffers, offer};
 
@@ -54,15 +52,7 @@ function Room(): JSX.Element {
   }, [offer, id]);
 
 
-  if(isLoading === true) {
-    return (
-      <main className="page__main page__main--property">
-        <section className="property">
-          <LoadingSpinner/>
-        </section>
-      </main>
-    );
-  } else if(offer) {
+  if(offer) {
     return (
       <>
         <Header />
