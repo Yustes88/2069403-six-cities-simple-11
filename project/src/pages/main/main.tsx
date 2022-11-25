@@ -1,38 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
 import Header from '../../components/header/header';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import Map from '../../components/map/map';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { switchCity} from '../../store/action';
-import { getFilteredOffers, getSortedOffers } from '../../store/selectors';
-import { City, Offers, OfferType } from '../../types/types';
+import { store } from '../../store';
+import { setOffers, switchCity} from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
+import { getSortedOffers } from '../../store/selectors';
+import { City, OfferType } from '../../types/types';
 
 type MainPageProps = {
-  offers: Offers;
   cities: City[];
 };
 
-function Main({offers, cities }: MainPageProps): JSX.Element {
+function Main({ cities }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
+  const offers = useAppSelector((state) => state.offers);
   const sortingName = useAppSelector((state) => state.currentSorting);
   const selectedCity = useAppSelector((state) => state.currentCity);
-  const filteredOffers = useAppSelector(getFilteredOffers);
   const sortedOffers = useAppSelector(getSortedOffers);
+  const isLoading = useAppSelector((state) => state.isLoading);
 
   const onListItemEnter = (id: number) => {
-    const currentPoint = offers.find((offer) => Number(offer.id) === id);
+    const currentPoint = Object.values(offers).find((offer) => offer.id === id);
 
     setSelectedOffer(currentPoint);
   };
 
   const dispatch = useAppDispatch();
 
-  return (
+  useEffect(() => {
+    store.dispatch(setOffers(offers));
+  }, [offers]);
+
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
+
+  return (isLoading) ? <LoadingSpinner/> :
     <>
       <Helmet>
         <title>6 cities</title>
@@ -51,7 +62,7 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
-                {filteredOffers.length} places to stay in {selectedCity.name}
+                {sortedOffers.length} places to stay in {selectedCity.name}
               </b>
               <SortingOptions sortingName = {sortingName}/>
               <div className="cities__places-list places__list tabs__content">
@@ -60,14 +71,13 @@ function Main({offers, cities }: MainPageProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={selectedCity} offers={offers} selectedOffer={selectedOffer} />
+                <Map city={selectedCity} offers={Object.values(offers)} selectedOffer={selectedOffer} />
               </section>
             </div>
           </div>
         </div>
       </main>
-    </>
-  );
+    </>;
 }
 
 export default Main;

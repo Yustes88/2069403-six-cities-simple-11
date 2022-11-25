@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { Cities } from './const';
-
-import {offerMock, ReviewsMock} from './mocks/offerMock';
 import { store } from './store';
 
 
@@ -16,8 +14,6 @@ root.render(
   <React.StrictMode>
     <Provider store = {store}>
       <App
-        offers = {offerMock}
-        reviews = {ReviewsMock}
         cities = {Cities}
 
       />

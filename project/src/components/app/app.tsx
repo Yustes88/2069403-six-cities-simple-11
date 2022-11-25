@@ -5,23 +5,14 @@ import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
-import { City, Offers, Reviews } from '../../types/types';
-import { useEffect } from 'react';
-import { setOffers } from '../../store/action';
-import { useAppDispatch } from '../../hooks';
+import { City } from '../../types/types';
 
 type AppScreenProps = {
-  offers: Offers;
-  reviews: Reviews;
   cities: City[];
 };
 
-function App({ offers, reviews, cities }: AppScreenProps): JSX.Element {
-  const dispatch = useAppDispatch();
+function App({ cities }: AppScreenProps): JSX.Element {
 
-  useEffect(() => {
-    dispatch (setOffers(offers));
-  }, [offers, dispatch]);
 
   return (
     <HelmetProvider>
@@ -30,11 +21,11 @@ function App({ offers, reviews, cities }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main offers={offers} cities = {cities} />}
+              element={<Main cities = {cities} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room offers={offers} reviews = {reviews} cities = {cities} />} />
+              <Route path={AppRoute.Id} element={<Room />} />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
@@ -7,26 +7,34 @@ import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
-import { City, Offers, OfferType, Reviews } from '../../types/types';
-import NotFound from '../404/not-found';
+import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
+import { store } from '../../store';
+import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import NotFound from '../404/not-found';
+import { getOfferById } from '../../store/selectors';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 
-type RoomProps = {
-  offers: Offers;
-  reviews: Reviews;
-  cities: City[];
-};
 
-function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
+function Room(): JSX.Element {
   const { id } = useParams();
-  const offer = offers.find((item) => item.id === Number(id));
+
+  const offer = useAppSelector(getOfferById(Number(id)));
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
+
+
   const selectedCity = useAppSelector((state) => state.currentCity);
+  const reviews = useAppSelector((state) => state.commentsList);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
+  const isLoading = useAppSelector((state) => state.isLoading);
+
+
+  const fullOffers = [...nearbyOffers, offer];
 
   const onListItemEnter = (itemId: number) => {
-    const currentPoint = offers.find((offerItem) => Number(offerItem.id) === itemId);
+    const currentPoint = Object.values(nearbyOffers).find((offerItem) => offerItem.id === itemId);
 
     setSelectedOffer(currentPoint);
   };
@@ -35,12 +43,23 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
     window.scroll(0, 0);
   };
 
+  useEffect(() => {
+    store.dispatch(fetchReviewsAction(Number(id)));
+    store.dispatch(fetchNearbyOffersAction(Number(id)));
+  }, [id]);
 
-  if (offer) {
+  useEffect(() => {
+    if(!offer) {
+      store.dispatch(fetchOfferAction(Number(id)));
+    }
+  }, [offer, id]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  } else if(offer) {
     return (
       <>
         <Header />
-
         <main className="page__main page__main--property" key={offer.id}>
           <section className="property">
             <div className="property__gallery-container container">
@@ -121,7 +140,7 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList reviews={reviews} offer={offer}/>
+                  <ReviewsList reviews={reviews}/>
                   <CommentForm />
                 </section>
               </div>
@@ -129,7 +148,7 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
             <section className="property__map map">
               <Map
                 city={selectedCity}
-                offers={offers}
+                offers={fullOffers}
                 selectedOffer={selectedOffer}
               />
             </section>
@@ -140,7 +159,7 @@ function Room({ offers, reviews, cities }: RoomProps): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list" onClick = {scrollToTop}>
-                <CardsList offers={offers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
+                <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
           </div>

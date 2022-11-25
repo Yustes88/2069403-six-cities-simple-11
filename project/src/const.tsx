@@ -66,3 +66,8 @@ export const Sorting = {
   HIGH_TO_LOW: 'Price: high to low',
   TOP_RATED: 'Top rated first',
 };
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Comments = '/comments'
+}

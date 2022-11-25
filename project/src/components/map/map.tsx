@@ -3,11 +3,11 @@ import { Icon, Marker } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
-import { City, Offers, OfferType } from '../../types/types';
+import { City, OfferType } from '../../types/types';
 
 type MapProps = {
   city: City;
-  offers: Offers;
+  offers: (OfferType | undefined)[];
   selectedOffer: OfferType | undefined;
 };
 
@@ -34,24 +34,25 @@ function Map(props: MapProps): JSX.Element {
       map.setView([city.location.latitude, city.location.longitude],
         city.location.zoom);
 
-      offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
-
-        marker
-          .setIcon(
-            selectedOffer !== undefined && offer.id === selectedOffer.id
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(map);
+      offers.forEach((offer: OfferType | undefined) => {
+        if(offer) {
+          const marker = new Marker({
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          });
+          marker
+            .setIcon(
+              selectedOffer !== undefined && offer.id === selectedOffer.id
+                ? currentCustomIcon
+                : defaultCustomIcon
+            )
+            .addTo(map);
+        }
       });
     }
   }, [map, city, offers, selectedOffer]);
 
-  return <div style={{ height: '500px' }} ref={mapRef}></div>;
+  return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }
 
 export default Map;
