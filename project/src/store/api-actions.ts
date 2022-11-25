@@ -25,7 +25,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
     const {data, status} = await api.get<Offers>(APIRoute.Offers);
-    if(status === 400 || status === 404) {
+    if(status >= 400) {
       dispatch(setLoadingStatus(false));
     }
     const normalizedOffers = processOffers(data);
@@ -42,15 +42,15 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchOffer',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data, status} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
-    if(status === 400 || status === 404) {
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
+      const normalizedOffer: { [offerId: number]: OfferType} = {[data.id]: data};
+      dispatch(setOffers(normalizedOffer));
+      dispatch(setLoadingStatus(false));
+    } catch (error) {
       dispatch(setLoadingStatus(false));
     }
-    const normalizedOffer: { [offerId: number]: OfferType} = {[data.id]: data};
-    dispatch(setOffers(normalizedOffer));
-    dispatch(setLoadingStatus(false));
-
   },
 );
 
@@ -64,7 +64,7 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
   async (id, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
     const {data, status} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
-    if(status === 400 || status === 404) {
+    if(status >= 400) {
       dispatch(setLoadingStatus(false));
     }
     dispatch(setComments(data));
@@ -80,7 +80,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
   'data/fetchNearbyOffers',
   async (id, {dispatch, extra: api}) => {
     const {data, status} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
-    if(status === 400 || status === 404) {
+    if(!status) {
       dispatch(setLoadingStatus(false));
     }
     dispatch(setNearbyOffers(data));
