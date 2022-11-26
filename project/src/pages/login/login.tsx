@@ -5,6 +5,7 @@ import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
 
 function Login():JSX.Element {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
@@ -14,14 +15,19 @@ function Login():JSX.Element {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const onSubmit = (userData: AuthData) => {
+    dispatch(loginAction(userData));
+  };
+
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
+      onSubmit({
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      }));
+      }
+      );
     }
   };
 
