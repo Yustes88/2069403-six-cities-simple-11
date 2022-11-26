@@ -6,6 +6,7 @@ import Header from '../../components/header/header';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import Map from '../../components/map/map';
 import SortingOptions from '../../components/sorting-options/sorting-options';
+import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { setOffers, switchCity} from '../../store/action';
@@ -15,10 +16,11 @@ import { City, OfferType } from '../../types/types';
 
 type MainPageProps = {
   cities: City[];
+  authorizationStatus: AuthorizationStatus;
 };
 
-function Main({ cities }: MainPageProps): JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
+function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer,] = useState<OfferType | undefined>(
     undefined
   );
   const offers = useAppSelector((state) => state.offers);
@@ -49,7 +51,7 @@ function Main({ cities }: MainPageProps): JSX.Element {
         <title>6 cities</title>
       </Helmet>
 
-      <Header />
+      <Header authorizationStatus={authorizationStatus}/>
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

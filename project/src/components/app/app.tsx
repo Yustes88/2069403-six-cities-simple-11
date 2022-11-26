@@ -6,12 +6,14 @@ import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import { City } from '../../types/types';
+import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
   cities: City[];
 };
 
 function App({ cities }: AppScreenProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
 
   return (
@@ -21,7 +23,7 @@ function App({ cities }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main cities = {cities} />}
+              element={<Main cities = {cities} authorizationStatus={authorizationStatus}/>}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>

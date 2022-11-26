@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
-import Header from '../../components/header/header';
+// import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Gallery from '../../components/offer/gallery';
 import HouseItems from '../../components/offer/house-items';
@@ -59,7 +59,7 @@ function Room(): JSX.Element {
   } else if(offer) {
     return (
       <>
-        <Header />
+        {/* <Header /> */}
         <main className="page__main page__main--property" key={offer.id}>
           <section className="property">
             <div className="property__gallery-container container">

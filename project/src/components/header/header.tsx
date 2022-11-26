@@ -1,7 +1,15 @@
 import { Helmet } from 'react-helmet-async';
+import { AuthorizationStatus } from '../../const';
+import HeaderLogin from '../header-login/header-login';
+import HeaderLogout from '../header-logout/header-logout';
 import Logo from '../logo/logo';
 
-function Header():JSX.Element {
+type HeaderPropsType = {
+  authorizationStatus: AuthorizationStatus;
+}
+
+function Header({authorizationStatus}: HeaderPropsType):JSX.Element {
+
   return (
     <>
       <Helmet>
@@ -12,21 +20,11 @@ function Header():JSX.Element {
           <div className="header__wrapper">
             <Logo />
             <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <div className="header__nav-profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                  </div>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#link">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
+              { authorizationStatus === AuthorizationStatus.Auth
+                ?
+                <HeaderLogout/>
+                :
+                <HeaderLogin/> }
             </nav>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { City, Offers, OfferType, Reviews } from '../types/types';
+import { UserData } from '../types/user-data';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
@@ -29,4 +30,10 @@ export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOf
   payload: nearbyOffersList,
 }));
 
-export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+export const requireAuthorization = createAction('user/requireAuthorization', (authorizationStatus: AuthorizationStatus) => ({
+  payload: authorizationStatus,
+}));
+
+export const setUserData = createAction('user/setUserData', (userData: UserData) => ({
+  payload: userData,
+}));
