@@ -71,3 +71,10 @@ export enum APIRoute {
   Offers = '/hotels',
   Comments = '/comments'
 }
+
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
