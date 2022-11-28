@@ -38,8 +38,4 @@ export const setUserData = createAction('user/setUserData', (userData: UserData)
   payload: userData,
 }));
 
-export const setError = createAction('app/setError', (error:string | null) => ({
-  payload: error,
-}));
-
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');

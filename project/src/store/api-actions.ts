@@ -2,8 +2,8 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { Offers, OfferType, Reviews } from '../types/types';
 import { AppDispatch, State } from '../types/storeTypes';
-import { setOffers, setComments, setLoadingStatus, setNearbyOffers, requireAuthorization, setUserData, setError, redirectToRoute } from './action';
-import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { setOffers, setComments, setLoadingStatus, setNearbyOffers, requireAuthorization, setUserData, redirectToRoute } from './action';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { store } from './index';
 import { UserData } from '../types/user-data';
@@ -137,13 +137,3 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-
-export const clearErrorAction = createAsyncThunk(
-  'game/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);

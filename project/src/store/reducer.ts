@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
 import { AuthorizationStatus, Cities } from '../const';
 import { City, Offers, OfferType, Reviews } from '../types/types';
-import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments, requireAuthorization, setUserData, setError } from './action';
+import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments, requireAuthorization, setUserData } from './action';
 import { UserData } from '../types/user-data';
 
 type ReducerTypes = {
@@ -14,7 +14,6 @@ type ReducerTypes = {
   nearbyOffersList: Offers;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
-  error: string | null;
 };
 
 const initialState: ReducerTypes = {
@@ -34,7 +33,6 @@ const initialState: ReducerTypes = {
     avatarUrl: '',
     isPro: false,
   },
-  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -62,8 +60,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserData, (state, action) => {
       state.userData = action.payload;
-    }).addCase(setError, (state, action) => {
-      state.error = action.payload;
     });
 });
 
