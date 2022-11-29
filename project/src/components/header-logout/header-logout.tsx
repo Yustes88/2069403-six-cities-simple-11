@@ -1,25 +1,23 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
-import { store } from '../../store';
+import { useAppDispatch } from '../../hooks';
 import { requireAuthorization } from '../../store/action';
-import HeaderProfile from '../header-user/header-user';
-
+import { logoutAction } from '../../store/api-actions';
 
 function HeaderLogout():JSX.Element {
+  const dispatch = useAppDispatch();
 
   const handleOnLogoutClick = () => {
-    store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(logoutAction());
   };
 
   return (
-    <>
-      <HeaderProfile/>
-      <li className="header__nav-item">
-        <Link className="header__nav-link" to="#link" onClick={handleOnLogoutClick}>
-          <span className="header__login">Sign out</span>
-        </Link>
-      </li>
-    </>
+    <li className="header__nav-item">
+      <Link className="header__nav-link" to="#link" onClick={handleOnLogoutClick}>
+        <span className="header__login">Sign out</span>
+      </Link>
+    </li>
   );
 }
 

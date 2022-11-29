@@ -1,7 +1,7 @@
 import {createAction} from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../const';
+import { AuthorizedUser } from '../types/auth-data';
 import { City, Offers, OfferType, Reviews } from '../types/types';
-import { UserData } from '../types/user-data';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
   payload: city,
@@ -34,7 +34,7 @@ export const requireAuthorization = createAction('user/requireAuthorization', (a
   payload: authorizationStatus,
 }));
 
-export const setUserData = createAction('user/setUserData', (userData: UserData) => ({
+export const setUserData = createAction('user/setUserData', (userData: AuthorizedUser) => ({
   payload: userData,
 }));
 

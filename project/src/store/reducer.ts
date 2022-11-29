@@ -3,7 +3,7 @@ import { sortValues } from '../utils/utils';
 import { AuthorizationStatus, Cities } from '../const';
 import { City, Offers, OfferType, Reviews } from '../types/types';
 import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments, requireAuthorization, setUserData } from './action';
-import { UserData } from '../types/user-data';
+import { AuthorizedUser } from '../types/auth-data';
 
 type ReducerTypes = {
   currentCity: City;
@@ -13,7 +13,7 @@ type ReducerTypes = {
   isLoading: boolean;
   nearbyOffersList: Offers;
   authorizationStatus: AuthorizationStatus;
-  userData: UserData | null;
+  userData: AuthorizedUser | null;
 };
 
 const initialState: ReducerTypes = {
@@ -24,15 +24,7 @@ const initialState: ReducerTypes = {
   isLoading: true,
   nearbyOffersList: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  userData: {
-    id: NaN,
-    email: '',
-    password: '',
-    token: '',
-    name: '',
-    avatarUrl: '',
-    isPro: false,
-  },
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {

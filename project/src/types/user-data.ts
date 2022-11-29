@@ -3,7 +3,4 @@ export type UserData = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
-  email: string;
-  password: string;
-  token: string;
 };

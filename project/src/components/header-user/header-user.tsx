@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../hooks';
-import NotFound from '../../pages/404/not-found';
 
 function HeaderProfile():JSX.Element {
   const user = useAppSelector((state) => state.userData);
@@ -24,7 +23,10 @@ function HeaderProfile():JSX.Element {
       </li>
     );
   } else {
-    return <NotFound/>;
+    return (
+      <li className="header__nav-item user">
+      </li>
+    );
   }
 
 }

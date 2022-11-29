@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { AuthorizationStatus } from '../../const';
 import HeaderLogin from '../header-login/header-login';
 import HeaderLogout from '../header-logout/header-logout';
+import HeaderProfile from '../header-user/header-user';
 import Logo from '../logo/logo';
 
 type HeaderPropsType = {
@@ -9,6 +10,7 @@ type HeaderPropsType = {
 }
 
 function Header({authorizationStatus}: HeaderPropsType):JSX.Element {
+  const isLogged = authorizationStatus === AuthorizationStatus.Auth;
 
   return (
     <>
@@ -20,9 +22,12 @@ function Header({authorizationStatus}: HeaderPropsType):JSX.Element {
           <div className="header__wrapper">
             <Logo />
             <nav className="header__nav">
-              { authorizationStatus === AuthorizationStatus.Auth
+              { isLogged
                 ?
-                <HeaderLogout/>
+                <>
+                  <HeaderProfile/>
+                  <HeaderLogout/>
+                </>
                 :
                 <HeaderLogin/> }
             </nav>

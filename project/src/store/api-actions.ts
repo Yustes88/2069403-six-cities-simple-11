@@ -5,10 +5,7 @@ import { AppDispatch, State } from '../types/storeTypes';
 import { setOffers, setComments, setLoadingStatus, setNearbyOffers, requireAuthorization, setUserData, redirectToRoute } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { store } from './index';
-import { UserData } from '../types/user-data';
-import { AuthData } from '../types/auth-data';
-
+import { AuthData, AuthorizedUser } from '../types/auth-data';
 
 function processOffers(offers: Offers): State['offers'] {
   const result: State['offers'] = {};
@@ -94,12 +91,13 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, { extra: api}) => {
+  async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(APIRoute.Login);
-      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const data = await api.get<AuthorizedUser>(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUserData(data.data));
     } catch {
-      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -112,11 +110,12 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'user/login',
   async (authData, {dispatch, extra: api}) => {
     try {
-      const {data: {token}, data} = await api.post<UserData>(APIRoute.Login, authData);
-      saveToken(token);
+      const {data} = await api.post<AuthorizedUser>(APIRoute.Login, authData);
+      saveToken(data.token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      dispatch(redirectToRoute(AppRoute.Root));
       dispatch(setUserData(data));
+      dispatch(redirectToRoute(AppRoute.Root));
+
     }
     catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
