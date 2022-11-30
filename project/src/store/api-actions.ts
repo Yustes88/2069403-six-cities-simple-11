@@ -25,12 +25,14 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Offers>(APIRoute.Offers);
-    dispatch(setLoadingStatus(false));
-    const normalizedOffers = processOffers(data);
-    dispatch(setOffers(normalizedOffers));
-    dispatch(setLoadingStatus(false));
-
+    try{
+      const {data} = await api.get<Offers>(APIRoute.Offers);
+      const normalizedOffers = processOffers(data);
+      dispatch(setOffers(normalizedOffers));
+      dispatch(setLoadingStatus(false));
+    }catch(error) {
+      dispatch(setLoadingStatus(false));
+    }
   },
 );
 
@@ -61,10 +63,14 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchComments',
   async (id, {dispatch, extra: api}) => {
-    dispatch(setLoadingStatus(true));
-    const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
-    dispatch(setLoadingStatus(false));
-    dispatch(setComments(data));
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
+      dispatch(setComments(data));
+      dispatch(setLoadingStatus(false));
+    }catch(error) {
+      dispatch(setLoadingStatus(false));
+    }
 
   }
 );
@@ -76,10 +82,15 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchNearbyOffers',
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
-    dispatch(setLoadingStatus(false));
-    dispatch(setNearbyOffers(data));
-    dispatch(setLoadingStatus(false));
+    try{
+      dispatch(setLoadingStatus(true));
+      const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+      dispatch(setNearbyOffers(data));
+      dispatch(setLoadingStatus(false));
+    }catch(error){
+      dispatch(setLoadingStatus(false));
+    }
+
 
   },
 );
@@ -143,7 +154,14 @@ export const postCommentAction = createAsyncThunk<void, CommentPost, {
 }>(
   'offer/postComment',
   async({id, comment, rating}, {dispatch, extra: api}) => {
-    await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
-    dispatch(fetchReviewsAction(id));
+    try{
+      dispatch(setLoadingStatus(true));
+      await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
+      dispatch(fetchReviewsAction(id));
+      dispatch(setLoadingStatus(false));
+    }catch(error){
+      dispatch(setLoadingStatus(false));
+    }
+
   }
 );

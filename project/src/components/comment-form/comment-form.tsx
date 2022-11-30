@@ -39,7 +39,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
 
 
   return(
-    <form className="reviews__form form" action="#" method="post" onClick={handleFormSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label
         className="reviews__label form__label"
         htmlFor="review"
