@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
+// import Header from '../../components/header/header';
 
 function RoomNotLogged(): JSX.Element {
   return(
@@ -8,7 +8,7 @@ function RoomNotLogged(): JSX.Element {
         <title>Room</title>
       </Helmet>
 
-      <Header/>
+      {/* <Header/> */}
 
       <main className="page__main page__main--property">
         <section className="property">

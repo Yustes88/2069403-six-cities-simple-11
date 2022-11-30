@@ -14,9 +14,13 @@ import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '.
 import NotFound from '../404/not-found';
 import { getOfferById } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
+import { AuthorizationStatus } from '../../const';
 
+type RoomPageProps = {
+  authorizationStatus: AuthorizationStatus;
+};
 
-function Room(): JSX.Element {
+function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   const { id } = useParams();
 
   const offer = useAppSelector(getOfferById(Number(id)));
@@ -59,7 +63,7 @@ function Room(): JSX.Element {
   } else if(offer) {
     return (
       <>
-        <Header />
+        <Header authorizationStatus={authorizationStatus} />
         <main className="page__main page__main--property" key={offer.id}>
           <section className="property">
             <div className="property__gallery-container container">

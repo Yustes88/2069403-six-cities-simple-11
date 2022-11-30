@@ -1,8 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { sortValues } from '../utils/utils';
-import { Cities } from '../const';
+import { AuthorizationStatus, Cities } from '../const';
 import { City, Offers, OfferType, Reviews } from '../types/types';
-import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments } from './action';
+import { setSortName, switchCity, setOffers, setLoadingStatus, setNearbyOffers, setComments, requireAuthorization, setUserData } from './action';
+import { AuthorizedUser } from '../types/auth-data';
 
 type ReducerTypes = {
   currentCity: City;
@@ -11,6 +12,8 @@ type ReducerTypes = {
   commentsList: Reviews;
   isLoading: boolean;
   nearbyOffersList: Offers;
+  authorizationStatus: AuthorizationStatus;
+  userData: AuthorizedUser | null;
 };
 
 const initialState: ReducerTypes = {
@@ -20,6 +23,8 @@ const initialState: ReducerTypes = {
   commentsList: [],
   isLoading: true,
   nearbyOffersList: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +46,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffersList = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });
 

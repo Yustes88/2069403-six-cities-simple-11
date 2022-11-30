@@ -1,4 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { AuthorizedUser } from '../types/auth-data';
 import { City, Offers, OfferType, Reviews } from '../types/types';
 
 export const switchCity = createAction('city/switchCity', (city: City) => ({
@@ -28,3 +30,12 @@ export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOf
   payload: nearbyOffersList,
 }));
 
+export const requireAuthorization = createAction('user/requireAuthorization', (authorizationStatus: AuthorizationStatus) => ({
+  payload: authorizationStatus,
+}));
+
+export const setUserData = createAction('user/setUserData', (userData: AuthorizedUser) => ({
+  payload: userData,
+}));
+
+export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
