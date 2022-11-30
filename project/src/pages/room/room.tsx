@@ -33,6 +33,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   const reviews = useAppSelector((state) => state.commentsList);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.isLoading);
+  const isAuth = useAppSelector((state) => state.authorizationStatus);
 
 
   const fullOffers = [...nearbyOffers, offer];
@@ -145,7 +146,10 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList reviews={reviews}/>
-                  <CommentForm />
+                  {isAuth === AuthorizationStatus.Auth ? (
+                    <CommentForm offerId = {Number(id)} />
+                  ) : null}
+
                 </section>
               </div>
             </div>
