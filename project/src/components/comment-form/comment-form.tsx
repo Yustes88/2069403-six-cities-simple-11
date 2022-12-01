@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { ReviewLength } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
 
@@ -13,9 +14,9 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const isEmpty = (rate === null);
-  const isShort = (review.length < 50);
-  const isLong = (review.length > 300);
+  const isShort = (review.length < ReviewLength.MinLength);
+  const isLong = (review.length > ReviewLength.MaxLength);
+  const isFormInvalid = isShort || isLong;
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = Number(evt.target.value);
@@ -54,6 +55,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
           id="5-stars"
           type="radio"
           onChange = {handleRatingChange}
+          required
         />
         <label
           htmlFor="5-stars"
@@ -157,7 +159,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {isEmpty || isLong || isShort}
+          disabled = {isFormInvalid}
         >
                       Submit
         </button>
