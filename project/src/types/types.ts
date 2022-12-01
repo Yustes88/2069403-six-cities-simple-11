@@ -39,6 +39,12 @@ export type ReviewType = {
   comment: string;
 }
 
+export type CommentPost = {
+  id: number;
+  comment: string;
+  rating: number | null;
+}
+
 export type Location = {
     latitude: number;
     longitude: number;

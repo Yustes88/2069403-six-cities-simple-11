@@ -1,20 +1,47 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { ReviewLength } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { postCommentAction } from '../../store/api-actions';
 
-function CommentForm():JSX.Element {
-  const [selectedRadioBtn, setSelectedRadioBtn] = useState('3');
-  const [commentValue, setCommentValue] = useState<string>('');
 
-  // This function is triggered when textarea changes
-  const textAreaChange = (event: ChangeEvent<HTMLTextAreaElement>):void => {
-    setCommentValue(event.target.value);
+type ReviewListPropsType = {
+  offerId: number;
+}
+
+function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
+  const [review, setReview] = useState<string>('');
+  const [rate, setRate] = useState<number | null>(null);
+
+  const dispatch = useAppDispatch();
+
+  const isShort = (review.length < ReviewLength.MinLength);
+  const isLong = (review.length > ReviewLength.MaxLength);
+  const isEmpty = rate === null;
+  const isFormInvalid = isShort || isLong || isEmpty;
+
+  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(evt.target.value);
+
+    setRate(value);
   };
 
-  const isRadioChecked = (value:string):boolean => selectedRadioBtn === value;
-  const handleRadioClick = (e: ChangeEvent<HTMLInputElement>): void => setSelectedRadioBtn(e.currentTarget.value);
+  const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = evt.target.value;
+    setReview(value);
+  };
+
+
+  const handleFormSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    const id = offerId;
+    const comment = review;
+    const rating = rate;
+    dispatch(postCommentAction({id, comment, rating}));
+  };
 
 
   return(
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label
         className="reviews__label form__label"
         htmlFor="review"
@@ -28,8 +55,8 @@ function CommentForm():JSX.Element {
           value="5"
           id="5-stars"
           type="radio"
-          checked = {isRadioChecked('5')}
-          onChange = {handleRadioClick}
+          onChange = {handleRatingChange}
+          required
         />
         <label
           htmlFor="5-stars"
@@ -47,8 +74,7 @@ function CommentForm():JSX.Element {
           value="4"
           id="4-stars"
           type="radio"
-          checked = {isRadioChecked('4')}
-          onChange = {handleRadioClick}
+          onChange = {handleRatingChange}
         />
         <label
           htmlFor="4-stars"
@@ -66,8 +92,7 @@ function CommentForm():JSX.Element {
           value="3"
           id="3-stars"
           type="radio"
-          checked = {isRadioChecked('3')}
-          onChange = {handleRadioClick}
+          onChange = {handleRatingChange}
         />
         <label
           htmlFor="3-stars"
@@ -85,8 +110,7 @@ function CommentForm():JSX.Element {
           value="2"
           id="2-stars"
           type="radio"
-          checked = {isRadioChecked('2')}
-          onChange = {handleRadioClick}
+          onChange = {handleRatingChange}
         />
         <label
           htmlFor="2-stars"
@@ -104,8 +128,7 @@ function CommentForm():JSX.Element {
           value="1"
           id="1-star"
           type="radio"
-          checked = {isRadioChecked('1')}
-          onChange = {handleRadioClick}
+          onChange = {handleRatingChange}
         />
         <label
           htmlFor="1-star"
@@ -122,8 +145,9 @@ function CommentForm():JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange = {textAreaChange}
-        value = {commentValue}
+        maxLength={300}
+        onChange = {handleTextareaChange}
+        value = {review}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -136,7 +160,7 @@ function CommentForm():JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled = {isFormInvalid}
         >
                       Submit
         </button>

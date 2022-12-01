@@ -80,3 +80,8 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum ReviewLength {
+  MinLength = 50,
+  MaxLength = 300,
+}
