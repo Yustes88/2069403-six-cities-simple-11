@@ -42,7 +42,7 @@ export type ReviewType = {
 export type CommentPost = {
   id: number;
   comment: string;
-  rating: number;
+  rating: number | null;
 }
 
 export type Location = {

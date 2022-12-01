@@ -10,13 +10,14 @@ type ReviewListPropsType = {
 
 function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
   const [review, setReview] = useState<string>('');
-  const [rate, setRate] = useState<number>(NaN);
+  const [rate, setRate] = useState<number | null>(null);
 
   const dispatch = useAppDispatch();
 
   const isShort = (review.length < ReviewLength.MinLength);
   const isLong = (review.length > ReviewLength.MaxLength);
-  const isFormInvalid = isShort || isLong;
+  const isEmpty = rate === null;
+  const isFormInvalid = isShort || isLong || isEmpty;
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = Number(evt.target.value);
