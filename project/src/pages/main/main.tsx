@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import CardsList from '../../components/cards-list/cards-list';
 import CitiesList from '../../components/cities-list/cities-list';
@@ -37,6 +37,10 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const onCityChange = useCallback((cityTitle: City) => {
+    dispatch(switchCity(cityTitle));
+  }, [dispatch]);
+
   useEffect(() => {
     store.dispatch(setOffers(offers));
   }, [offers]);
@@ -55,10 +59,7 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={(cityTitle) => {
-          dispatch(switchCity(cityTitle));
-        }}
-        />
+        <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={onCityChange}/>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { City } from '../../types/types';
 
 type CitiesListProps = {
@@ -37,4 +38,4 @@ function CitiesList({cities, selectedCity, onCityChange}: CitiesListProps):JSX.E
   );
 }
 
-export default CitiesList;
+export default memo(CitiesList);
