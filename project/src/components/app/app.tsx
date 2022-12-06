@@ -15,7 +15,7 @@ type AppScreenProps = {
 };
 
 function App({ cities }: AppScreenProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
 
 
   return (

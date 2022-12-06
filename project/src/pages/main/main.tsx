@@ -9,8 +9,9 @@ import SortingOptions from '../../components/sorting-options/sorting-options';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { setOffers, switchCity} from '../../store/action';
-import { fetchOffersAction } from '../../store/api-actions';
+import { switchCity } from '../../store/client/action';
+import { setOffers } from '../../store/offers/action';
+import { fetchOffersAction } from '../../store/offers/api-actions';
 import { getSortedOffers } from '../../store/selectors';
 import { City, OfferType } from '../../types/types';
 
@@ -23,11 +24,11 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer,] = useState<OfferType | undefined>(
     undefined
   );
-  const offers = useAppSelector((state) => state.offers);
-  const sortingName = useAppSelector((state) => state.currentSorting);
-  const selectedCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offersReducer.offers);
+  const sortingName = useAppSelector((state) => state.clientReducer.currentSorting);
+  const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
   const sortedOffers = useAppSelector(getSortedOffers);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
 
   const onListItemEnter = (id: number) => {
     const currentPoint = Object.values(offers).find((offer) => offer.id === id);

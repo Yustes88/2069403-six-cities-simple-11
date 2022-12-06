@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { ReviewLength } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { postCommentAction } from '../../store/api-actions';
+import { postCommentAction } from '../../store/offer/api-actions';
 
 
 type ReviewListPropsType = {

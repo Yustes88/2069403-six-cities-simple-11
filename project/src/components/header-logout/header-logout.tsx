@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { requireAuthorization } from '../../store/action';
-import { logoutAction } from '../../store/api-actions';
+import { requireAuthorization } from '../../store/user/action';
+import { logoutAction } from '../../store/user/api-actions';
+
 
 function HeaderLogout():JSX.Element {
   const dispatch = useAppDispatch();

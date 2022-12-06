@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks';
 
 function HeaderProfile():JSX.Element {
-  const user = useAppSelector((state) => state.userData);
+  const user = useAppSelector((state) => state.userReducer.userData);
 
   if(user){
     return (

@@ -4,11 +4,12 @@ import { Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/user/api-actions';
+
 import { AuthData } from '../../types/auth-data';
 
 function Login():JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
 
   const dispatch = useAppDispatch();
 

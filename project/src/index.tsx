@@ -5,8 +5,8 @@ import { ToastContainer } from 'react-toastify';
 import App from './components/app/app';
 import { Cities } from './const';
 import { store } from './store';
-import { checkAuthAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
+import { checkAuthAction } from './store/user/api-actions';
 
 store.dispatch(checkAuthAction());
 
