@@ -24,7 +24,7 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
   const [selectedOffer, setSelectedOffer,] = useState<OfferType | undefined>(
     undefined
   );
-  const offers = useAppSelector((state) => state.offersReducer.offers);
+  const offers = useAppSelector((state) => state.offers);
   const sortingName = useAppSelector((state) => state.clientReducer.currentSorting);
   const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
   const sortedOffers = useAppSelector(getSortedOffers);

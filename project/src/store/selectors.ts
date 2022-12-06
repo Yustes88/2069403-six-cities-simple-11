@@ -1,17 +1,15 @@
 import { filteredOffersByCity } from '../utils/utils';
-import { City, OfferType } from '../types/types';
+import { OfferType } from '../types/types';
 import { createSelector } from '@reduxjs/toolkit';
+import { State } from '../types/storeTypes';
 
-export const getFilteredOffers = (state: {
-  currentCity: City;
-  offers: { [offerId: number]: OfferType};
-}) => {
-  const filteredOffers = filteredOffersByCity(state.currentCity, state.offers);
+export const getFilteredOffers = (state: State) => {
+  const filteredOffers = filteredOffersByCity(state.clientReducer.currentCity, state.offers);
   return filteredOffers;
 };
 
 
-const getSortingName = (state: { currentSorting: string}) => state.currentSorting;
+const getSortingName = (state: State) => state.clientReducer.currentSorting;
 
 export const getSortedOffers = createSelector(
   getFilteredOffers,

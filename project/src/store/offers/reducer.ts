@@ -2,19 +2,16 @@ import { createReducer } from '@reduxjs/toolkit';
 import { OfferType } from '../../types/types';
 import { setOffers } from './action';
 
-export type OffersReducerTypes = {
-  offers: {[offerId: number]: OfferType};
-};
+export type OffersReducerTypes =
+{[offerId: number]: OfferType};
 
-const initialState: OffersReducerTypes = {
-  offers: {},
-};
+const initialState: OffersReducerTypes = {};
 
-const offersReducer = createReducer(initialState, (builder) => {
+const offers = createReducer(initialState, (builder) => {
   builder
     .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
+      state = action.payload;
     });
 });
 
-export { offersReducer };
+export { offers };
