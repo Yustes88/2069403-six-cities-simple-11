@@ -1,5 +1,4 @@
 import { filteredOffersByCity } from '../utils/utils';
-import { OfferType } from '../types/types';
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../types/storeTypes';
 
@@ -29,6 +28,4 @@ export const getSortedOffers = createSelector(
 );
 
 
-export const getOfferById = (offerId:number) => (store:{
-  offers: { [offerId: number]: OfferType};
-}) => Object.values(store.offers).find(({ id }) => id === offerId);
+export const getOfferById = (offerId:number) => (store: State) => Object.values(store.offers).find(({ id }) => id === offerId);

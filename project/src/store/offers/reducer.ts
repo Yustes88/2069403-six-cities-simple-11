@@ -9,9 +9,7 @@ const initialState: OffersReducerTypes = {};
 
 const offers = createReducer(initialState, (builder) => {
   builder
-    .addCase(setOffers, (state, action) => {
-      state = action.payload;
-    });
+    .addCase(setOffers, (state, action) => action.payload);
 });
 
 export { offers };
