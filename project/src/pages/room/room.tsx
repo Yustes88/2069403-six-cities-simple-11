@@ -10,11 +10,12 @@ import ReviewsList from '../../components/review-list/reviews-list';
 import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import NotFound from '../404/not-found';
 import { getOfferById } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { AuthorizationStatus } from '../../const';
+import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/offer/api-actions';
+import { fetchOfferAction } from '../../store/offers/api-actions';
 
 type RoomPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -29,11 +30,11 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   );
 
 
-  const selectedCity = useAppSelector((state) => state.currentCity);
-  const reviews = useAppSelector((state) => state.commentsList);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffersList);
-  const isLoading = useAppSelector((state) => state.isLoading);
-  const isAuth = useAppSelector((state) => state.authorizationStatus);
+  const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
+  const reviews = useAppSelector((state) => state.offerReducer.commentsList);
+  const nearbyOffers = useAppSelector((state) => state.offerReducer.nearbyOffersList);
+  const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
+  const isAuth = useAppSelector((state) => state.userReducer.authorizationStatus);
 
 
   const fullOffers = [...nearbyOffers, offer];

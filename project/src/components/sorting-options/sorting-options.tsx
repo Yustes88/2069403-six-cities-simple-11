@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { setSortName } from '../../store/action';
+import { setSortName } from '../../store/client/action';
 import { sortValues } from '../../utils/utils';
 
 
@@ -43,4 +43,4 @@ function SortingOptions({sortingName}: SortingListProps):JSX.Element {
   );
 }
 
-export default SortingOptions;
+export default memo(SortingOptions);

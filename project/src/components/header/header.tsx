@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { AuthorizationStatus } from '../../const';
 import HeaderLogin from '../header-login/header-login';
@@ -38,4 +39,4 @@ function Header({authorizationStatus}: HeaderPropsType):JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);
