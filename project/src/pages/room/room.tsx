@@ -88,13 +88,13 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
                     <span style={{ width: `${
-                      offer.rating * 20}%` }}
+                      Math.round(offer.rating) * 20}%` }}
                     >
                     </span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    {offer.rating}
+                    {Math.round(offer.rating)}
                   </span>
                 </div>
                 <ul className="property__features">
