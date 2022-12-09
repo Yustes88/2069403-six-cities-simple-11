@@ -6,7 +6,7 @@ function Gallery({pictures}: RoomProps):JSX.Element {
   return(
     <div className="property__gallery-container container">
       <div className="property__gallery">
-        {pictures.map((picture, itemId) => {
+        {pictures.slice(0, 6).map((picture, itemId) => {
           const keyValue = itemId;
           return(
             <div className="property__image-wrapper" key={keyValue}>
