@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { ReviewLength } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/offer/api-actions';
+import './comment-form.css';
 
 
 type ReviewListPropsType = {
@@ -14,6 +15,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const isSending = useAppSelector((state) => state.offerReducer.sendingStatus);
   const isShort = (review.length < ReviewLength.MinLength);
   const isLong = (review.length > ReviewLength.MaxLength);
   const isEmpty = rate === null;
@@ -41,7 +43,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
 
 
   return(
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className={isSending === true ? 'reviews__form form reviews__form-loading' : 'reviews__form form'} action="#" method="post" onSubmit={handleFormSubmit}>
       <label
         className="reviews__label form__label"
         htmlFor="review"
@@ -160,7 +162,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {isFormInvalid}
+          disabled = {isFormInvalid || isSending === true }
         >
                       Submit
         </button>

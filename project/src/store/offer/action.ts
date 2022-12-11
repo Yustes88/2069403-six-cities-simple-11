@@ -9,3 +9,8 @@ export const setComments = createAction('data/setComments', (commentsList: Revie
 export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOffersList: Offers) => ({
   payload: nearbyOffersList,
 }));
+
+
+export const checkCommentStatus = createAction('offer/checkCommentStatus', (sendindStatus: boolean) => ({
+  payload: sendindStatus,
+}));
