@@ -1,20 +1,25 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { switchCity } from '../../store/client/action';
 import { loginAction } from '../../store/user/api-actions';
 
 import { AuthData } from '../../types/auth-data';
+import { getRandomCity } from '../../utils/utils';
 
 function Login():JSX.Element {
   const authStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const randomCity = getRandomCity();
 
   const onSubmit = (userData: AuthData) => {
     dispatch(loginAction(userData));
@@ -35,6 +40,11 @@ function Login():JSX.Element {
   if (authStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Root} />;
   }
+
+  const handleLocationClick = () => {
+    dispatch(switchCity(randomCity));
+    navigate(AppRoute.Root);
+  };
 
   return(
     <>
@@ -67,8 +77,8 @@ function Login():JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#link">
-                <span>Amsterdam</span>
+              <a className="locations__item-link" href="#link" onClick={handleLocationClick}>
+                <span>{randomCity.name}</span>
               </a>
             </div>
           </section>

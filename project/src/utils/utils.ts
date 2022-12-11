@@ -1,4 +1,4 @@
-import { Sorting } from '../const';
+import { Cities, Sorting } from '../const';
 import { City, OfferType } from '../types/types';
 
 export const filteredOffersByCity = (currentCity: City, offers: { [offerId: number]: OfferType}) =>
@@ -18,3 +18,9 @@ export const formatDate = (isoDate: string) => {
 };
 
 export const sortValues = Object.values(Sorting);
+
+export const getRandomCity = () => {
+  const index = Math.floor(Math.random() * Cities.length);
+
+  return Cities[index];
+};
