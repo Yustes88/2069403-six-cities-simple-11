@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { toast } from 'react-toastify';
 import { APIRoute } from '../../const';
 import { AppDispatch, State } from '../../types/storeTypes';
 import { Reviews, Offers, CommentPost } from '../../types/types';
@@ -60,6 +61,7 @@ export const postCommentAction = createAsyncThunk<void, CommentPost, {
       dispatch(setLoadingStatus(false));
     }catch(error){
       dispatch(setLoadingStatus(false));
+      toast.error('Something went wrong, please try again later');
     }
 
   }
