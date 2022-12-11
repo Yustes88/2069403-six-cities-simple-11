@@ -11,7 +11,7 @@ import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import NotFound from '../404/not-found';
-import { getOfferById } from '../../store/selectors';
+import { getOfferById, getSortedReviews } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { AuthorizationStatus } from '../../const';
 import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/offer/api-actions';
@@ -31,7 +31,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
 
 
   const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
-  const reviews = useAppSelector((state) => state.offerReducer.commentsList);
+  const reviews = useAppSelector(getSortedReviews);
   const nearbyOffers = useAppSelector((state) => state.offerReducer.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
   const isAuth = useAppSelector((state) => state.userReducer.authorizationStatus);
