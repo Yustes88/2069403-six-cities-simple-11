@@ -1,6 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -27,6 +28,27 @@ function Login():JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
+
+    if (emailRef.current === null || passwordRef.current === null) {
+      toast.error('All fields are required');
+      return;
+    }
+
+    if (!/.+@.+\..+/.test(emailRef.current.value)) {
+      toast.error(`Invalid email ${emailRef.current.value}`);
+      return;
+    }
+
+    if (!/[A-Za-z]/.test(passwordRef.current.value)) {
+      toast.error('Your password is required to have at least one letter');
+      return;
+    }
+
+    if (!/[\d]/.test(passwordRef.current.value)) {
+      toast.error('Your password is required to have at least one number');
+      return;
+    }
+
 
     if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({
