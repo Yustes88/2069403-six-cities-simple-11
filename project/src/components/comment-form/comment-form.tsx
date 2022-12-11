@@ -147,7 +147,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        maxLength={300}
+        maxLength={ReviewLength.MaxLength}
         onChange = {handleTextareaChange}
         value = {review}
       >

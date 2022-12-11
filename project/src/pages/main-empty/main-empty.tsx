@@ -17,7 +17,7 @@ function MainEmpty() {
         </section>
         <div className="cities__right-section">
           <section className="cities__map map">
-            <img src="../img/map@2x.jpg" alt="" />
+            <img src="../img/map@2x.jpg" alt="Static map" />
           </section>
         </div>
       </div>

@@ -60,8 +60,8 @@ export const postCommentAction = createAsyncThunk<void, CommentPost, {
       dispatch(fetchReviewsAction(id));
       dispatch(checkCommentStatus(false));
     }catch(error){
-      dispatch(setLoadingStatus(false));
       toast.error('Something went wrong, please try again later');
+      dispatch(checkCommentStatus(false));
     }
 
   }

@@ -4,8 +4,8 @@ import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import Gallery from '../../components/offer/gallery';
-import HouseItems from '../../components/offer/house-items';
+import Gallery from '../../components/gallery/gallery';
+import HouseItems from '../../components/house-items/house-items';
 import ReviewsList from '../../components/review-list/reviews-list';
 import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
@@ -23,12 +23,11 @@ type RoomPageProps = {
 
 function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   const { id } = useParams();
-
   const offer = useAppSelector(getOfferById(Number(id)));
+
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
-
 
   const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
   const reviews = useAppSelector(getSortedReviews);

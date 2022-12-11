@@ -89,3 +89,5 @@ export enum ReviewLength {
 
 export const MAX_COMMENTS_COUNT = 10;
 
+export const MAX_PICTURES = 6;
+
