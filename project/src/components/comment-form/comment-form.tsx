@@ -39,6 +39,9 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
     const comment = review;
     const rating = rate;
     dispatch(postCommentAction({id, comment, rating}));
+    setReview('');
+    setRate(null);
+
   };
 
 

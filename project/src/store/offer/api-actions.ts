@@ -15,10 +15,8 @@ export const fetchReviewsAction = createAsyncThunk<void, number, {
   'data/fetchComments',
   async (id, {dispatch, extra: api}) => {
     try{
-      dispatch(setLoadingStatus(true));
       const {data} = await api.get<Reviews>(`${APIRoute.Comments}/${id}`);
       dispatch(setComments(data));
-      dispatch(setLoadingStatus(false));
     }catch(error) {
       dispatch(setLoadingStatus(false));
     }

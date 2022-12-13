@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
@@ -44,9 +44,6 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
     setSelectedOffer(currentPoint);
   };
 
-  const scrollToTop = ():void => {
-    window.scroll(0, 0);
-  };
 
   useEffect(() => {
     store.dispatch(fetchReviewsAction(Number(id)));
@@ -58,6 +55,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
       store.dispatch(fetchOfferAction(Number(id)));
     }
   }, [offer, id]);
+
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -166,7 +164,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <div className="near-places__list places__list" onClick = {scrollToTop}>
+              <div className="near-places__list places__list">
                 <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
@@ -185,4 +183,4 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   }
 }
 
-export default Room;
+export default memo(Room);
