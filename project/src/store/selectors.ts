@@ -6,7 +6,7 @@ import { MAX_COMMENTS_COUNT } from '../const';
 
 const getSortingName = (state: State) => state.clientReducer.currentSorting;
 
-const getReviews = (state: State) => state.offerReducer.commentsList;
+const getReviews = (state: State) => state.offerReducer.reviewsList;
 
 export const getFilteredOffers = (state: State) => {
   const filteredOffers = filteredOffersByCity(state.clientReducer.currentCity, state.offers);
@@ -32,7 +32,7 @@ export const getSortedOffers = createSelector(
 
 export const getSortedReviews = createSelector(
   getReviews,
-  (commentsList) => commentsList.slice().sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, MAX_COMMENTS_COUNT));
+  (reviewsList) => reviewsList.slice().sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, MAX_COMMENTS_COUNT));
 
 
 export const getOfferById = (offerId:number) => (store: State) => Object.values(store.offers).find(({ id }) => id === offerId);

@@ -36,12 +36,12 @@ export type ReviewType = {
   };
   rating: number;
   date: string;
-  comment: string;
+  review: string;
 }
 
-export type CommentPost = {
+export type ReviewPost = {
   id: number;
-  comment: string;
+  review: string;
   rating: number | null;
 }
 

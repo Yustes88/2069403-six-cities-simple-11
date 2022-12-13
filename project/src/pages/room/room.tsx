@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { memo, useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
-import CommentForm from '../../components/comment-form/comment-form';
+import ReviewtForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Gallery from '../../components/gallery/gallery';
@@ -145,7 +145,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 <section className="property__reviews reviews">
                   <ReviewsList reviews={reviews}/>
                   {isAuth === AuthorizationStatus.Auth ? (
-                    <CommentForm offerId = {Number(id)} />
+                    <ReviewtForm offerId = {Number(id)} />
                   ) : null}
 
                 </section>

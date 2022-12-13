@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Reviews, Offers } from '../../types/types';
 
-export const setComments = createAction('data/setComments', (commentsList: Reviews) => ({
-  payload: commentsList,
+export const setReviews = createAction('data/setReviews', (reviewsList: Reviews) => ({
+  payload: reviewsList,
 }));
 
 
@@ -11,6 +11,6 @@ export const setNearbyOffers = createAction('offers/loadNearbyOffers', (nearbyOf
 }));
 
 
-export const checkCommentStatus = createAction('offer/checkCommentStatus', (sendindStatus: boolean) => ({
+export const checkReviewsStatus = createAction('offer/checkReviewsStatus', (sendindStatus: boolean) => ({
   payload: sendindStatus,
 }));
