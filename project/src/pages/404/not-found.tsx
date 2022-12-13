@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { AppRoute } from '../../const';
 
 function NotFound(): JSX.Element {
   return (
@@ -17,7 +18,7 @@ function NotFound(): JSX.Element {
       </header>
       <main className="container page__main page__main--index">
         <h1>404 Not Found</h1>
-        <Link to="/">Вернуться на главную</Link>
+        <Link to={AppRoute.Root}>Вернуться на главную</Link>
       </main>
     </>
   );

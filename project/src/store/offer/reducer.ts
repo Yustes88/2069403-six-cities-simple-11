@@ -2,13 +2,13 @@ import { createReducer } from '@reduxjs/toolkit';
 import { Reviews, Offers } from '../../types/types';
 import { checkCommentStatus, setComments, setNearbyOffers } from './action';
 
-export type offerReducerTypes = {
+export type OfferReducerTypes = {
   commentsList: Reviews;
   nearbyOffersList: Offers;
   sendingStatus: boolean;
 };
 
-const initialState: offerReducerTypes = {
+const initialState: OfferReducerTypes = {
   commentsList: [],
   nearbyOffersList: [],
   sendingStatus: false,

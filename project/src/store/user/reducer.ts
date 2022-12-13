@@ -4,12 +4,12 @@ import { AuthorizedUser } from '../../types/auth-data';
 import { requireAuthorization, setUserData } from './action';
 
 
-export type userReducerTypes = {
+export type UserReducerTypes = {
   authorizationStatus: AuthorizationStatus;
   userData: AuthorizedUser | null;
 };
 
-const initialState: userReducerTypes = {
+const initialState: UserReducerTypes = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
 };
