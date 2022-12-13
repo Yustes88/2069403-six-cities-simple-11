@@ -34,7 +34,7 @@ function Login():JSX.Element {
       return;
     }
 
-    if (!/.+@.+\..+/.test(emailRef.current.value)) {
+    if (!/.+@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(emailRef.current.value)) {
       toast.error(`Invalid email ${emailRef.current.value}`);
       return;
     }
