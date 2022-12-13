@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { requireAuthorization } from '../../store/user/action';
 import { logoutAction } from '../../store/user/api-actions';
@@ -15,7 +15,7 @@ function HeaderLogout():JSX.Element {
 
   return (
     <li className="header__nav-item">
-      <Link className="header__nav-link" to="#link" onClick={handleOnLogoutClick}>
+      <Link className="header__nav-link" to={AppRoute.Root} onClick={handleOnLogoutClick}>
         <span className="header__login">Log Out</span>
       </Link>
     </li>
