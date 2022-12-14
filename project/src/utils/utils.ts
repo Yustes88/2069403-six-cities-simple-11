@@ -10,10 +10,12 @@ export const formatDate = (isoDate: string) => {
   return date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
 };
 
-export const sortValues = Object.values(Sorting);
-
 export const getRandomCity = () => {
   const index = Math.floor(Math.random() * Cities.length);
 
   return Cities[index];
 };
+
+export const sortValues = Object.values(Sorting);
+
+
