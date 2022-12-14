@@ -1,21 +1,21 @@
 import { useParams } from 'react-router-dom';
 import { memo, useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
-import ReviewtForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Gallery from '../../components/gallery/gallery';
 import HouseItems from '../../components/house-items/house-items';
-import ReviewsList from '../../components/review-list/reviews-list';
 import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import NotFound from '../404/not-found';
-import { getOfferById, getSortedReviews } from '../../store/selectors';
+import { getOfferById, getSortedComments } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { AuthorizationStatus } from '../../const';
-import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/offer/api-actions';
+import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/offer/api-actions';
 import { fetchOfferAction } from '../../store/offers/api-actions';
+import CommentsList from '../../components/comment-list/comments-list';
+import CommentForm from '../../components/comment-form/comment-form';
 
 type RoomPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -30,7 +30,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   );
 
   const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
-  const reviews = useAppSelector(getSortedReviews);
+  const comments = useAppSelector(getSortedComments);
   const nearbyOffers = useAppSelector((state) => state.offerReducer.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
   const isAuth = useAppSelector((state) => state.userReducer.authorizationStatus);
@@ -46,7 +46,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
 
 
   useEffect(() => {
-    store.dispatch(fetchReviewsAction(Number(id)));
+    store.dispatch(fetchCommentsAction(Number(id)));
     store.dispatch(fetchNearbyOffersAction(Number(id)));
   }, [id]);
 
@@ -143,9 +143,9 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList reviews={reviews}/>
+                  <CommentsList comments={comments}/>
                   {isAuth === AuthorizationStatus.Auth ? (
-                    <ReviewtForm offerId = {Number(id)} />
+                    <CommentForm offerId = {Number(id)} />
                   ) : null}
 
                 </section>

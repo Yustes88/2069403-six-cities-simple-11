@@ -3,20 +3,20 @@ import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { APIRoute } from '../../const';
 import { AppDispatch, State } from '../../types/storeTypes';
-import { Reviews, Offers, ReviewPost } from '../../types/types';
+import { Comments, Offers, CommentPost } from '../../types/types';
 import { setLoadingStatus } from '../client/action';
-import { checkReviewsStatus, setReviews, setNearbyOffers } from './action';
+import { checkCommentsStatus, setComments, setNearbyOffers } from './action';
 
-export const fetchReviewsAction = createAsyncThunk<void, number, {
+export const fetchCommentsAction = createAsyncThunk<void, number, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchReviews',
+  'data/fetchComments',
   async (id, {dispatch, extra: api}) => {
     try{
-      const {data} = await api.get<Reviews>(`${APIRoute.Reviews}/${id}`);
-      dispatch(setReviews(data));
+      const {data} = await api.get<Comments>(`${APIRoute.Comments}/${id}`);
+      dispatch(setComments(data));
     }catch(error) {
       dispatch(setLoadingStatus(false));
     }
@@ -45,21 +45,21 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
 );
 
 
-export const postReviewAction = createAsyncThunk<void, ReviewPost, {
+export const postCommentsAction = createAsyncThunk<void, CommentPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'offer/postReview',
-  async({id, review, rating}, {dispatch, extra: api}) => {
+  'offer/postComment',
+  async({id, comment, rating}, {dispatch, extra: api}) => {
     try{
-      dispatch(checkReviewsStatus(true));
-      await api.post(`${APIRoute.Reviews}/${id}`, {review, rating});
-      dispatch(fetchReviewsAction(id));
-      dispatch(checkReviewsStatus(false));
+      dispatch(checkCommentsStatus(true));
+      await api.post(`${APIRoute.Comments}/${id}`, {comment, rating});
+      dispatch(fetchCommentsAction(id));
+      dispatch(checkCommentsStatus(false));
     }catch(error){
       toast.error('Something went wrong, please try again later');
-      dispatch(checkReviewsStatus(false));
+      dispatch(checkCommentsStatus(false));
     }
 
   }

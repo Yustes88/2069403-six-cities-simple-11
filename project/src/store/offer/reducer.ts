@@ -1,28 +1,28 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Reviews, Offers } from '../../types/types';
-import { checkReviewsStatus, setReviews, setNearbyOffers } from './action';
+import { Comments, Offers } from '../../types/types';
+import { checkCommentsStatus, setComments, setNearbyOffers } from './action';
 
 export type OfferReducerTypes = {
-  reviewsList: Reviews;
+  commentsList: Comments;
   nearbyOffersList: Offers;
   sendingStatus: boolean;
 };
 
 const initialState: OfferReducerTypes = {
-  reviewsList: [],
+  commentsList: [],
   nearbyOffersList: [],
   sendingStatus: false,
 };
 
 const offerReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setReviews, (state, action) => {
-      state.reviewsList = action.payload;
+    .addCase(setComments, (state, action) => {
+      state.commentsList = action.payload;
     })
     .addCase(setNearbyOffers, (state, action) => {
       state.nearbyOffersList = action.payload;
     })
-    .addCase(checkReviewsStatus, (state, action) => {
+    .addCase(checkCommentsStatus, (state, action) => {
       state.sendingStatus = action.payload;
     });
 });

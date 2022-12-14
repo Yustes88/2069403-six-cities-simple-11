@@ -1,6 +1,6 @@
 import { FormEvent, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -15,7 +15,6 @@ function Login():JSX.Element {
   const authStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -65,7 +64,6 @@ function Login():JSX.Element {
 
   const handleLocationClick = () => {
     dispatch(switchCity(randomCity));
-    navigate(AppRoute.Root);
   };
 
   return(
@@ -99,9 +97,9 @@ function Login():JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#link" onClick={handleLocationClick}>
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={handleLocationClick}>
                 <span>{randomCity.name}</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

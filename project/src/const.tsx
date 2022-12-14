@@ -69,7 +69,7 @@ export const Sorting = {
 
 export enum APIRoute {
   Offers = '/hotels',
-  Reviews = '/comments',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }
@@ -81,7 +81,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum ReviewLength {
+export enum CommentLength {
   MinLength = 50,
   MaxLength = 300,
 }

@@ -26,7 +26,7 @@ export type OfferType = {
   }
 
 
-export type ReviewType = {
+export type CommentType = {
   id: number;
   user : {
     id: number;
@@ -36,12 +36,12 @@ export type ReviewType = {
   };
   rating: number;
   date: string;
-  review: string;
+  comment: string;
 }
 
-export type ReviewPost = {
+export type CommentPost = {
   id: number;
-  review: string;
+  comment: string;
   rating: number | null;
 }
 
@@ -59,4 +59,4 @@ export type City = {
 export type Offers = OfferType[];
 
 
-export type Reviews = ReviewType[];
+export type Comments = CommentType[];
