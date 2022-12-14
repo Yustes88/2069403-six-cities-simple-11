@@ -1,3 +1,5 @@
+import { MAX_PICTURES } from '../../const';
+
 type RoomProps = {
   pictures: string[];
 }
@@ -6,7 +8,7 @@ function Gallery({pictures}: RoomProps):JSX.Element {
   return(
     <div className="property__gallery-container container">
       <div className="property__gallery">
-        {pictures.map((picture, itemId) => {
+        {pictures.slice(0, MAX_PICTURES).map((picture, itemId) => {
           const keyValue = itemId;
           return(
             <div className="property__image-wrapper" key={keyValue}>

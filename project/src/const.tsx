@@ -81,7 +81,13 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum ReviewLength {
+export enum CommentLength {
   MinLength = 50,
   MaxLength = 300,
 }
+
+
+export const MAX_COMMENTS_COUNT = 10;
+
+export const MAX_PICTURES = 6;
+

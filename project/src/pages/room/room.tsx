@@ -1,21 +1,21 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import CardsList from '../../components/cards-list/cards-list';
-import CommentForm from '../../components/comment-form/comment-form';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
-import Gallery from '../../components/offer/gallery';
-import HouseItems from '../../components/offer/house-items';
-import ReviewsList from '../../components/review-list/reviews-list';
+import Gallery from '../../components/gallery/gallery';
+import HouseItems from '../../components/house-items/house-items';
 import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import NotFound from '../404/not-found';
-import { getOfferById } from '../../store/selectors';
+import { getOfferById, getSortedComments } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { AuthorizationStatus } from '../../const';
-import { fetchNearbyOffersAction, fetchReviewsAction } from '../../store/offer/api-actions';
+import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/offer/api-actions';
 import { fetchOfferAction } from '../../store/offers/api-actions';
+import CommentsList from '../../components/comment-list/comments-list';
+import CommentForm from '../../components/comment-form/comment-form';
 
 type RoomPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -23,15 +23,14 @@ type RoomPageProps = {
 
 function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   const { id } = useParams();
-
   const offer = useAppSelector(getOfferById(Number(id)));
+
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
 
-
   const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
-  const reviews = useAppSelector((state) => state.offerReducer.commentsList);
+  const comments = useAppSelector(getSortedComments);
   const nearbyOffers = useAppSelector((state) => state.offerReducer.nearbyOffersList);
   const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
   const isAuth = useAppSelector((state) => state.userReducer.authorizationStatus);
@@ -45,12 +44,9 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
     setSelectedOffer(currentPoint);
   };
 
-  const scrollToTop = ():void => {
-    window.scroll(0, 0);
-  };
 
   useEffect(() => {
-    store.dispatch(fetchReviewsAction(Number(id)));
+    store.dispatch(fetchCommentsAction(Number(id)));
     store.dispatch(fetchNearbyOffersAction(Number(id)));
   }, [id]);
 
@@ -59,6 +55,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
       store.dispatch(fetchOfferAction(Number(id)));
     }
   }, [offer, id]);
+
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -88,13 +85,13 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
                     <span style={{ width: `${
-                      offer.rating * 20}%` }}
+                      Math.round(offer.rating) * 20}%` }}
                     >
                     </span>
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">
-                    {offer.rating}
+                    {Math.round(offer.rating)}
                   </span>
                 </div>
                 <ul className="property__features">
@@ -146,7 +143,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewsList reviews={reviews}/>
+                  <CommentsList comments={comments}/>
                   {isAuth === AuthorizationStatus.Auth ? (
                     <CommentForm offerId = {Number(id)} />
                   ) : null}
@@ -167,7 +164,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <div className="near-places__list places__list" onClick = {scrollToTop}>
+              <div className="near-places__list places__list">
                 <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
               </div>
             </section>
@@ -186,4 +183,4 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   }
 }
 
-export default Room;
+export default memo(Room);

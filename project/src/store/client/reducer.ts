@@ -4,13 +4,13 @@ import { City } from '../../types/types';
 import { sortValues } from '../../utils/utils';
 import { switchCity, setSortName, setLoadingStatus } from './action';
 
-export type clientReducerTypes = {
+export type ClientReducerTypes = {
   currentCity: City;
   currentSorting: string;
   isLoading: boolean;
 };
 
-const initialState: clientReducerTypes = {
+const initialState: ClientReducerTypes = {
   currentCity: Cities[0],
   currentSorting: sortValues[0],
   isLoading: true,

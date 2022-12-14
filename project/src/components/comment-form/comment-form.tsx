@@ -1,21 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { ReviewLength } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { postCommentAction } from '../../store/offer/api-actions';
+import { CommentLength } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postCommentsAction } from '../../store/offer/api-actions';
+import './comment-form.css';
 
 
-type ReviewListPropsType = {
+type CommentListPropsType = {
   offerId: number;
 }
 
-function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
-  const [review, setReview] = useState<string>('');
+function CommentForm({offerId}: CommentListPropsType):JSX.Element {
+  const [userComment, setComment] = useState<string>('');
   const [rate, setRate] = useState<number | null>(null);
 
   const dispatch = useAppDispatch();
 
-  const isShort = (review.length < ReviewLength.MinLength);
-  const isLong = (review.length > ReviewLength.MaxLength);
+  const isSending = useAppSelector((state) => state.offerReducer.sendingStatus);
+  const isShort = (userComment.length < CommentLength.MinLength);
+  const isLong = (userComment.length > CommentLength.MaxLength);
   const isEmpty = rate === null;
   const isFormInvalid = isShort || isLong || isEmpty;
 
@@ -27,21 +29,24 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
 
   const handleTextareaChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const value = evt.target.value;
-    setReview(value);
+    setComment(value);
   };
 
 
   const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     const id = offerId;
-    const comment = review;
+    const comment = userComment;
     const rating = rate;
-    dispatch(postCommentAction({id, comment, rating}));
+    dispatch(postCommentsAction({id, comment, rating}));
+    setComment('');
+    setRate(null);
+
   };
 
 
   return(
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    <form className={isSending === true ? 'reviews__form form reviews__form-loading' : 'reviews__form form'} action="#" method="post" onSubmit={handleFormSubmit}>
       <label
         className="reviews__label form__label"
         htmlFor="review"
@@ -145,9 +150,9 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        maxLength={300}
+        maxLength={CommentLength.MaxLength}
         onChange = {handleTextareaChange}
-        value = {review}
+        value = {userComment}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -160,7 +165,7 @@ function CommentForm({offerId}: ReviewListPropsType):JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled = {isFormInvalid}
+          disabled = {isFormInvalid || isSending === true }
         >
                       Submit
         </button>

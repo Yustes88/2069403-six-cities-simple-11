@@ -1,39 +1,39 @@
-import { ReviewType } from '../../types/types';
+import { CommentType } from '../../types/types';
 import { formatDate } from '../../utils/utils';
 
-type ReviewProps = {
-  review: ReviewType;
+type CommentProps = {
+  comment: CommentType;
 };
 
-function Review({ review }: ReviewProps): JSX.Element {
+function CommentItem({ comment }: CommentProps): JSX.Element {
   return (
     <>
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"
-            src={review.user.avatarUrl}
+            src={comment.user.avatarUrl}
             width="54"
             height="54"
             alt="Reviews avatar"
           />
         </div>
-        <span className="reviews__user-name">{review.user.name}</span>
+        <span className="reviews__user-name">{comment.user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${review.rating * 20}%` }}></span>
+            <span style={{ width: `${comment.rating * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{review.comment}</p>
-        <time className="reviews__time" dateTime={review.date}>
-          {formatDate(review.date)}
+        <p className="reviews__text">{comment.comment}</p>
+        <time className="reviews__time" dateTime={comment.date}>
+          {formatDate(comment.date)}
         </time>
       </div>
     </>
   );
 }
 
-export default Review;
+export default CommentItem;

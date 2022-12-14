@@ -76,7 +76,7 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
                 </div>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
+                <section className="cities__map">
                   <Map city={selectedCity} offers={Object.values(offers)} selectedOffer={selectedOffer} />
                 </section>
               </div>
