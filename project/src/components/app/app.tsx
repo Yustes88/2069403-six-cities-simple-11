@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute} from '../../const';
+import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
-import NotFound from '../../pages/404/not-found';
+import NotFound from '../../pages/not-found/not-found';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Room from '../../pages/room/room';
 import { City } from '../../types/types';
 import { useAppSelector } from '../../hooks';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
@@ -15,8 +15,9 @@ type AppScreenProps = {
 };
 
 function App({ cities }: AppScreenProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
-
+  const authorizationStatus = useAppSelector(
+    (state) => state.userReducer.authorizationStatus
+  );
 
   return (
     <HelmetProvider>
@@ -25,11 +26,19 @@ function App({ cities }: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root}>
             <Route
               index
-              element={<Main cities = {cities} authorizationStatus={authorizationStatus}/>}
+              element={
+                <Main
+                  cities={cities}
+                  authorizationStatus={authorizationStatus}
+                />
+              }
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route path={AppRoute.Offer}>
-              <Route path={AppRoute.Id} element={<Room authorizationStatus={authorizationStatus} />} />
+              <Route
+                path={AppRoute.Id}
+                element={<Room authorizationStatus={authorizationStatus} />}
+              />
             </Route>
           </Route>
           <Route path={AppRoute.NotFound} element={<NotFound />} />
