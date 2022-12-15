@@ -25,7 +25,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   const { id } = useParams();
   const offer = useAppSelector(getOfferById(Number(id)));
 
-  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
+  const [, setSelectedOffer] = useState<OfferType | undefined>(
     offer
   );
 
@@ -155,7 +155,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
               <Map
                 city={selectedCity}
                 offers={fullOffers}
-                selectedOffer={selectedOffer}
+                selectedOffer={offer}
               />
             </section>
           </section>
