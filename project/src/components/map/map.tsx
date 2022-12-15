@@ -29,6 +29,7 @@ function Map(props: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
+
   useEffect(() => {
     if (map) {
       map.setView([city.location.latitude, city.location.longitude],
@@ -51,6 +52,13 @@ function Map(props: MapProps): JSX.Element {
       });
     }
   }, [map, city, offers, selectedOffer]);
+
+  useEffect(() => {
+    if(selectedOffer && map) {
+      const currentZoom = map.getZoom();
+      map.flyTo([selectedOffer.location.latitude, selectedOffer.location.longitude], currentZoom);
+    }
+  }, [map, selectedOffer]);
 
   return <div style={{ height: '600px' }} ref={mapRef}></div>;
 }
