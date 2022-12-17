@@ -8,42 +8,49 @@ import HouseItems from '../../components/house-items/house-items';
 import { OfferType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import NotFound from '../404/not-found';
+import NotFound from '../not-found/not-found';
 import { getOfferById, getSortedComments } from '../../store/selectors';
 import LoadingSpinner from '../../components/loading-spinner/loading-spinner';
 import { AuthorizationStatus } from '../../const';
-import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/offer/api-actions';
+import {
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+} from '../../store/offer/api-actions';
 import { fetchOfferAction } from '../../store/offers/api-actions';
-import CommentsList from '../../components/comment-list/comments-list';
+import CommentsList from '../../components/comments-list/comments-list';
 import CommentForm from '../../components/comment-form/comment-form';
 
 type RoomPageProps = {
   authorizationStatus: AuthorizationStatus;
 };
 
-function Room({authorizationStatus}: RoomPageProps): JSX.Element {
+function Room({ authorizationStatus }: RoomPageProps): JSX.Element {
   const { id } = useParams();
   const offer = useAppSelector(getOfferById(Number(id)));
 
-  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
-    offer
+  const [, setSelectedOffer] = useState<OfferType | undefined>(offer);
+
+  const selectedCity = useAppSelector(
+    (state) => state.clientReducer.currentCity
   );
-
-  const selectedCity = useAppSelector((state) => state.clientReducer.currentCity);
   const comments = useAppSelector(getSortedComments);
-  const nearbyOffers = useAppSelector((state) => state.offerReducer.nearbyOffersList);
+  const nearbyOffers = useAppSelector(
+    (state) => state.offerReducer.nearbyOffersList
+  );
   const isLoading = useAppSelector((state) => state.clientReducer.isLoading);
-  const isAuth = useAppSelector((state) => state.userReducer.authorizationStatus);
-
+  const isAuth = useAppSelector(
+    (state) => state.userReducer.authorizationStatus
+  );
 
   const fullOffers = [...nearbyOffers, offer];
 
   const onListItemEnter = (itemId: number) => {
-    const currentPoint = Object.values(nearbyOffers).find((offerItem) => offerItem.id === itemId);
+    const currentPoint = Object.values(nearbyOffers).find(
+      (offerItem) => offerItem.id === itemId
+    );
 
     setSelectedOffer(currentPoint);
   };
-
 
   useEffect(() => {
     store.dispatch(fetchCommentsAction(Number(id)));
@@ -51,15 +58,14 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
   }, [id]);
 
   useEffect(() => {
-    if(!offer) {
+    if (!offer) {
       store.dispatch(fetchOfferAction(Number(id)));
     }
   }, [offer, id]);
 
-
   if (isLoading) {
     return <LoadingSpinner />;
-  } else if(offer) {
+  } else if (offer) {
     return (
       <>
         <Header authorizationStatus={authorizationStatus} />
@@ -84,8 +90,8 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{ width: `${
-                      Math.round(offer.rating) * 20}%` }}
+                    <span
+                      style={{ width: `${Math.round(offer.rating) * 20}%` }}
                     >
                     </span>
                     <span className="visually-hidden">Rating</span>
@@ -106,9 +112,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                   </li>
                 </ul>
                 <div className="property__price">
-                  <b className="property__price-value">
-                    &euro;{offer.price}
-                  </b>
+                  <b className="property__price-value">&euro;{offer.price}</b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
@@ -120,7 +124,11 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
-                    <div className={`property__avatar-wrapper ${offer.host.isPro ? 'property__avatar-wrapper--pro' : ''}  user__avatar-wrapper`}>
+                    <div
+                      className={`property__avatar-wrapper ${
+                        offer.host.isPro ? 'property__avatar-wrapper--pro' : ''
+                      }  user__avatar-wrapper`}
+                    >
                       <img
                         className="property__avatar user__avatar"
                         src={offer.host.avatarUrl}
@@ -137,17 +145,14 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                     </span>
                   </div>
                   <div className="property__description">
-                    <p className="property__text">
-                      {offer.description}
-                    </p>
+                    <p className="property__text">{offer.description}</p>
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <CommentsList comments={comments}/>
+                  <CommentsList comments={comments} />
                   {isAuth === AuthorizationStatus.Auth ? (
-                    <CommentForm offerId = {Number(id)} />
+                    <CommentForm offerId={Number(id)} />
                   ) : null}
-
                 </section>
               </div>
             </div>
@@ -155,7 +160,7 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
               <Map
                 city={selectedCity}
                 offers={fullOffers}
-                selectedOffer={selectedOffer}
+                selectedOffer={offer}
               />
             </section>
           </section>
@@ -165,7 +170,11 @@ function Room({authorizationStatus}: RoomPageProps): JSX.Element {
                 Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                <CardsList offers={nearbyOffers} onListItemEnter={onListItemEnter} cardType = {'nearby'}/>
+                <CardsList
+                  offers={nearbyOffers}
+                  onListItemEnter={onListItemEnter}
+                  cardType={'nearby'}
+                />
               </div>
             </section>
           </div>

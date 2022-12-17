@@ -56,36 +56,36 @@ function Main({ cities, authorizationStatus }: MainPageProps): JSX.Element {
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-
-      <Header authorizationStatus={authorizationStatus}/>
-
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={onCityChange}/>
-        <div className="cities">
-          {sortedOffers.length !== 0 ? (
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">
-                  {sortedOffers.length} places to stay in {selectedCity.name}
-                </b>
-                <SortingOptions sortingName = {sortingName}/>
-                <div className="cities__places-list places__list tabs__content">
-                  <CardsList offers={sortedOffers} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
-                </div>
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map">
-                  <Map city={selectedCity} offers={Object.values(offers)} selectedOffer={selectedOffer} />
+      <div className="page page--gray page--main">
+        <Header authorizationStatus={authorizationStatus}/>
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <CitiesList cities = {cities} selectedCity = {selectedCity} onCityChange={onCityChange}/>
+          <div className="cities">
+            {sortedOffers.length !== 0 ? (
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">
+                    {sortedOffers.length} places to stay in {selectedCity.name}
+                  </b>
+                  <SortingOptions sortingName = {sortingName}/>
+                  <div className="cities__places-list places__list tabs__content">
+                    <CardsList offers={sortedOffers} onListItemEnter={onListItemEnter} cardType = {'cities'}/>
+                  </div>
                 </section>
+                <div className="cities__right-section">
+                  <section className="cities__map">
+                    <Map city={selectedCity} offers={Object.values(offers)} selectedOffer={selectedOffer} />
+                  </section>
+                </div>
               </div>
-            </div>
-          ) : (
-            <MainEmpty/>
-          )}
-        </div>
-      </main>
+            ) : (
+              <MainEmpty/>
+            )}
+          </div>
+        </main>
+      </div>
     </>;
 }
 

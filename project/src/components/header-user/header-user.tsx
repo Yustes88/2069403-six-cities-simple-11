@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks';
 
-function HeaderProfile():JSX.Element {
+function HeaderUser():JSX.Element {
   const user = useAppSelector((state) => state.userReducer.userData);
 
   if(user){
@@ -31,4 +31,4 @@ function HeaderProfile():JSX.Element {
 
 }
 
-export default HeaderProfile;
+export default HeaderUser;
